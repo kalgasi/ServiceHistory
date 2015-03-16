@@ -30,7 +30,7 @@ public class AllServiceHistoryActivity extends ActionBarActivity {
             List<ServiceData> dataService=dataSource.getAllServiceHistory();
 
             //listView.set;
-           ArrayAdapter<ServiceData> adapter=new ArrayAdapter<ServiceData>(this, R.layout.all_service_history_layout,dataService);
+           ArrayAdapter<ServiceData> adapter=new ArrayAdapter<ServiceData>(this, android.R.layout.simple_list_item_1,dataService);
             listView.setAdapter(adapter);
         } catch (SQLException e) {
             Toast.makeText(this, "No Data Service", Toast.LENGTH_SHORT).show();

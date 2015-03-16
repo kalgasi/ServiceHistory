@@ -22,6 +22,8 @@ public class MenuActivity extends ActionBarActivity {
     }
 
     public void viewAllServiceHistory(View v){
+        Intent intent=new Intent(this,AllServiceHistoryActivity.class);
+        startActivity(intent);
 
     }
 
