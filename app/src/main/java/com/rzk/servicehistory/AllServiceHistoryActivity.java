@@ -1,5 +1,6 @@
 package com.rzk.servicehistory;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class AllServiceHistoryActivity extends ActionBarActivity {
     private ServiceDataSource dataSource;
-
+    List<ServiceData> dataService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,24 +30,46 @@ public class AllServiceHistoryActivity extends ActionBarActivity {
 
         try {
             dataSource.open();
-            List<ServiceData> dataService=dataSource.getAllServiceHistory();
+            dataService=dataSource.getAllServiceHistory();
 
             //listView.set;
            ArrayAdapter<ServiceData> adapter=new ArrayAdapter<ServiceData>(this, android.R.layout.simple_list_item_1,dataService);
             listView.setAdapter(adapter);
         } catch (SQLException e) {
-            Toast.makeText(this, "No Data Service", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "No Data Service", Toast.LENGTH_SHORT).show();
         }
         dataSource.close();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                
+                ServiceData serviceData=dataService.get(position);
+                String text=serviceData.getServiceInfo()+" "+serviceData.getServiceSparePart();
+                //showMessage(text);
+                showServiceDetail(serviceData);
             }
         });
     }
 
+    public void showServiceDetail(ServiceData data){
+        Intent intent=new Intent(this,ServiceDetailActivity.class);
 
+        intent.putExtras(createServiceDataBundle(data));
+        startActivity(intent);
+    }
+
+    public Bundle createServiceDataBundle(ServiceData data){
+        Bundle serviceInfo=new Bundle();
+        serviceInfo.putString("serviceName",data.getServiceName());
+        serviceInfo.putString("serviceDate",data.getServiceDate());
+        serviceInfo.putString("serviceSparePart",data.getServiceSparePart());
+        serviceInfo.putString("serviceInfo",data.getServiceInfo());
+
+        return serviceInfo;
+    }
+
+    public void showMessage(String text){
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
