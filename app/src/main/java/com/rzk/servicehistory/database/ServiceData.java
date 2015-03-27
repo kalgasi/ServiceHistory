@@ -8,6 +8,7 @@ public class ServiceData {
     private String ServiceDate;
     private String ServiceSparePart;
     private String ServiceInfo;
+    private String VehicleId;
     private long id;
 
     public String getServiceName() {
@@ -52,5 +53,13 @@ public class ServiceData {
 
     public String toString(){
         return ServiceDate+" "+ServiceName;
+    }
+
+    public String getVehicleId() {
+        return VehicleId;
+    }
+
+    public void setVehicleId(String vehicleId) {
+        VehicleId = vehicleId;
     }
 }

@@ -15,6 +15,10 @@ import java.util.List;
 public class ServiceDataSource {
     private SQLiteDatabase database;
     private newSqlLiteHelper helper;
+    private String AllVehicleColumn[]={newSqlLiteHelper.COLUMN_VEHICLE_ID,
+            newSqlLiteHelper.COLUMN_VEHICLE_NAME,
+    newSqlLiteHelper.COLUMN_VEHICLE_DATA,
+    newSqlLiteHelper.COLUMN_VEHICLE_LAST_SERVICE_DATE};
     private String allColums[]={newSqlLiteHelper.COLUMN_ID,newSqlLiteHelper.COLUMN_SERVICE_NAME,
     newSqlLiteHelper.COLUMN_SERVICE_DATE,newSqlLiteHelper.COLUMN_SERVICE_SPAREPART
     ,newSqlLiteHelper.COLUMN_SERVICE_INFO};
@@ -36,6 +40,7 @@ public class ServiceDataSource {
         values.put(newSqlLiteHelper.COLUMN_SERVICE_DATE,data.getServiceDate() );
         values.put(newSqlLiteHelper.COLUMN_SERVICE_SPAREPART,data.getServiceSparePart() );
         values.put(newSqlLiteHelper.COLUMN_SERVICE_INFO,data.getServiceInfo() );
+        values.put(newSqlLiteHelper.COLUMN_VEHICLE_ID,data.getVehicleId());
         long insertId=database.insert(newSqlLiteHelper.TABLE_SERVICE,null,values);
 
         Cursor cursor=database.query(newSqlLiteHelper.TABLE_SERVICE,allColums
@@ -44,6 +49,37 @@ public class ServiceDataSource {
         cursor.moveToFirst();
         cursor.close();
 
+    }
+
+    public void createVehicleData(VehicleData vehicleData){
+        ContentValues values=new ContentValues();
+        values.put(newSqlLiteHelper.COLUMN_VEHICLE_ID,vehicleData.getVehicleId());
+        values.put(newSqlLiteHelper.COLUMN_VEHICLE_NAME,vehicleData.getVehicleName());
+        values.put(newSqlLiteHelper.COLUMN_VEHICLE_DATA,vehicleData.getVehicleData());
+        values.put(newSqlLiteHelper.COLUMN_VEHICLE_LAST_SERVICE_DATE,vehicleData.getVehicleLastServiceDate());
+        long insertId=database.insert(newSqlLiteHelper.TABLE_VEHICLE,null,values);
+
+
+       // Cursor cursor=database.query(newSqlLiteHelper.TABLE_VEHICLE);
+    }
+
+    public List<VehicleData> getAllvehicleData(){
+
+        List<VehicleData> vehicleDatas=new ArrayList<VehicleData>();
+        Cursor cursor=database.query(newSqlLiteHelper.TABLE_VEHICLE,AllVehicleColumn ,null,null,null,null,null);
+        cursor.moveToLast();
+        while(!cursor.isBeforeFirst()){
+            VehicleData vehicleData=new VehicleData();
+            vehicleData.setVehicleId(cursor.getString(0));
+            vehicleData.setVehicleName(cursor.getString(1));
+            vehicleData.setVehicleData(cursor.getString(2));
+            vehicleData.setVehicleLastServiceDate(cursor.getString(3));
+            vehicleDatas.add(vehicleData);
+
+            cursor.moveToPrevious();
+        }
+        cursor.close();
+        return  vehicleDatas;
     }
 
     public ServiceData getLastServiceData(){
@@ -57,8 +93,9 @@ public class ServiceDataSource {
             serviceData.setServiceDate(cursor.getString(2));
             serviceData.setServiceSparePart(cursor.getString(3));
             serviceData.setServiceInfo(cursor.getString(4));
+            serviceData.setVehicleId(cursor.getString(5));
         }
-
+        cursor.close();
         return  serviceData;
     }
 
