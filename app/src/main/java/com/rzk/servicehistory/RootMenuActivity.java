@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.rzk.servicehistory.database.ServiceDataSource;
 import com.rzk.servicehistory.database.VehicleData;
@@ -37,10 +39,41 @@ public class RootMenuActivity extends ActionBarActivity {
         if(checkDatabase()){
 
             listViewVehicle.setVisibility(View.VISIBLE);
+            listViewVehicle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    VehicleData vehicleData=vehicleDatas.get(position);
+                    showData(vehicleData);
+                }
+            });
         }
         else{
             listViewVehicle.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (checkDatabase()){
+            listViewVehicle.setVisibility(View.VISIBLE);
+            listViewVehicle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    VehicleData vehicleData=vehicleDatas.get(position);
+                    showData(vehicleData);
+
+                }
+            });
+        }
+    }
+    public void showData(VehicleData data){
+        Toast.makeText(this,data.getVehicleId(),Toast.LENGTH_SHORT).show();
+    }
+    public void showVehicleHistoryMenu(VehicleData vehicleData){
+        Intent intent=new Intent(this, MenuActivity.class);
+
+
     }
 
     private boolean checkDatabase(){
@@ -61,6 +94,7 @@ public class RootMenuActivity extends ActionBarActivity {
         Intent intent=new Intent(this,AddVehicleActivity.class);
         startActivity(intent);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
