@@ -10,11 +10,7 @@
         <activity
             android:name=".MenuActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".AddServiceActivity"
@@ -39,6 +35,19 @@
         <activity
             android:name=".ServiceDetailActivity"
             android:label="@string/title_activity_service_detail" >
+        </activity>
+        <activity
+            android:name=".RootMenuActivity"
+            android:label="@string/title_activity_root_menu" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AddVehicleActivity"
+            android:label="@string/title_activity_add_vehicle" >
         </activity>
     </application>
 

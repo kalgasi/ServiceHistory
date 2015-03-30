@@ -35,19 +35,20 @@ public class AllServiceHistoryActivity extends ActionBarActivity {
             //listView.set;
            ArrayAdapter<ServiceData> adapter=new ArrayAdapter<ServiceData>(this, android.R.layout.simple_list_item_1,dataService);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    ServiceData serviceData=dataService.get(position);
+                    String text=serviceData.getServiceInfo()+" "+serviceData.getServiceSparePart();
+                    //showMessage(text);
+                    showServiceDetail(serviceData);
+                }
+            });
         } catch (SQLException e) {
            // Toast.makeText(this, "No Data Service", Toast.LENGTH_SHORT).show();
         }
         dataSource.close();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ServiceData serviceData=dataService.get(position);
-                String text=serviceData.getServiceInfo()+" "+serviceData.getServiceSparePart();
-                //showMessage(text);
-                showServiceDetail(serviceData);
-            }
-        });
+
     }
 
     public void showServiceDetail(ServiceData data){

@@ -21,7 +21,7 @@ public class ServiceDataSource {
     newSqlLiteHelper.COLUMN_VEHICLE_LAST_SERVICE_DATE};
     private String allColums[]={newSqlLiteHelper.COLUMN_ID,newSqlLiteHelper.COLUMN_SERVICE_NAME,
     newSqlLiteHelper.COLUMN_SERVICE_DATE,newSqlLiteHelper.COLUMN_SERVICE_SPAREPART
-    ,newSqlLiteHelper.COLUMN_SERVICE_INFO};
+    ,newSqlLiteHelper.COLUMN_SERVICE_INFO,newSqlLiteHelper.COLUMN_VEHICLE_ID};
 
     public ServiceDataSource(Context context){
         helper=new newSqlLiteHelper(context);

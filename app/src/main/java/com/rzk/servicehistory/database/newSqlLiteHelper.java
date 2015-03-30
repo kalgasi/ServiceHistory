@@ -16,7 +16,7 @@ public class newSqlLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_VEHICLE_DATA="vehicle_data";
     public static final String COLUMN_VEHICLE_LAST_SERVICE_DATE="vehicle_last_service_date";
 
-    private static final String DATABASE_CREATE_TABLE_VEHICLE="create table"
+    private static final String DATABASE_CREATE_TABLE_VEHICLE="create table "
             + TABLE_VEHICLE+ "("+COLUMN_VEHICLE_ID
             + " text primary key, "+COLUMN_VEHICLE_NAME
             + " text, "+COLUMN_VEHICLE_DATA

@@ -9,6 +9,10 @@
     <string name="save_button">Save</string>
     <string name="reset_button">Reset</string>
     <string name="keterangan">Info</string>
+    <string name="add_vehicle">Add Vehicle</string>
+
+    <string name="vehicle_id">Vehicle ID</string>
+    <string name="vehicle_name">Vehicle Name</string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_service">Add Service</string>
@@ -16,4 +20,9 @@
     <string name="title_activity_service_history">Service History</string>
     <string name="title_activity_all_service_history">All Service History</string>
     <string name="title_activity_service_detail">ServiceDetailActivity</string>
+    <string name="title_activity_root_menu">Service History</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_add_vehicle">Add Vehicle</string>
 </resources>
