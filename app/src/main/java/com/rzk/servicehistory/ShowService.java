@@ -1,5 +1,6 @@
 package com.rzk.servicehistory;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.rzk.servicehistory.database.ServiceData;
 import com.rzk.servicehistory.database.ServiceDataSource;
+import com.rzk.servicehistory.database.VehicleData;
 
 import java.sql.SQLException;
 
@@ -17,14 +19,26 @@ import java.sql.SQLException;
 public class ShowService extends ActionBarActivity {
     private ServiceDataSource dataSource;
     private ServiceData serviceData=null;
+    private VehicleData vehicleData;
+    private Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_service);
         dataSource=new ServiceDataSource(this);
+        Intent intent=getIntent();
+        vehicleData=new VehicleData();
+        if(intent!=null){
+            bundle=intent.getExtras();
+            vehicleData.setVehicleId(bundle.getString("vehicleId"));
+            vehicleData.setVehicleName(bundle.getString("vehicleName"));
+            vehicleData.setVehicleData(bundle.getString("vehicleData"));
+            vehicleData.setVehicleLastServiceDate(bundle.getString("vehicleLastServiceData"));
+        }
         try {
+            //Toast.makeText(this,vehicleData.getVehicleId(),Toast.LENGTH_SHORT).show();
             dataSource.open();
-            serviceData=dataSource.getLastServiceData();
+            serviceData=dataSource.getLastServiceData(vehicleData);
             dataSource.close();
 
         } catch (SQLException e) {
@@ -40,6 +54,7 @@ public class ShowService extends ActionBarActivity {
             textViewSpare.setText(serviceData.getServiceSparePart());
             TextView tvInfo=(TextView)findViewById(R.id.tv_info);
             tvInfo.setText(serviceData.getServiceInfo());
+            //Toast.makeText(this,serviceData.getVehicleId(),Toast.LENGTH_SHORT).show();
 
         }
         else{

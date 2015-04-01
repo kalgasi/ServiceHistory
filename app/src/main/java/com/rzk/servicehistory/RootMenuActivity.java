@@ -43,7 +43,9 @@ public class RootMenuActivity extends ActionBarActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     VehicleData vehicleData=vehicleDatas.get(position);
-                    showData(vehicleData);
+                    showVehicleHistoryMenu(vehicleData);
+                   // showData(vehicleData);
+
                 }
             });
         }
@@ -61,7 +63,8 @@ public class RootMenuActivity extends ActionBarActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     VehicleData vehicleData=vehicleDatas.get(position);
-                    showData(vehicleData);
+                    //showData(vehicleData);
+                    showVehicleHistoryMenu(vehicleData);
 
                 }
             });
@@ -72,8 +75,20 @@ public class RootMenuActivity extends ActionBarActivity {
     }
     public void showVehicleHistoryMenu(VehicleData vehicleData){
         Intent intent=new Intent(this, MenuActivity.class);
+        intent.putExtras(createVehicleData(vehicleData));
+        startActivity(intent);
 
+    }
 
+    public Bundle createVehicleData(VehicleData vehicleData){
+        Bundle vehicleDataBundle=new Bundle();
+        vehicleDataBundle.putString("vehicleId",vehicleData.getVehicleId());
+        vehicleDataBundle.putString("vehicleName",vehicleData.getVehicleName());
+        vehicleDataBundle.putString("vehicleData",vehicleData.getVehicleData());
+        if(vehicleData.getVehicleLastServiceDate()==null)
+        vehicleDataBundle.putString("vehicleLastServiceData","");
+        else vehicleDataBundle.putString("vehicleLastServiceData",vehicleData.getVehicleLastServiceDate());
+        return vehicleDataBundle;
     }
 
     private boolean checkDatabase(){

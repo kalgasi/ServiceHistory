@@ -99,6 +99,26 @@ public class ServiceDataSource {
         return  serviceData;
     }
 
+    public ServiceData getLastServiceData(VehicleData vehicleData){
+        ServiceData serviceData=new ServiceData();
+        String order="date("+newSqlLiteHelper.COLUMN_SERVICE_DATE+ ") ASC";
+        String selection=newSqlLiteHelper.COLUMN_VEHICLE_ID+" LIKE?";
+        String[] arg={String.valueOf(vehicleData.getVehicleId())};
+        Cursor cursor = database.query(newSqlLiteHelper.TABLE_SERVICE,
+                allColums, selection, arg, null, null, order);
+        cursor.moveToLast();
+
+        if(!cursor.isAfterLast()) {
+            serviceData.setServiceName(cursor.getString(1));
+            serviceData.setServiceDate(cursor.getString(2));
+            serviceData.setServiceSparePart(cursor.getString(3));
+            serviceData.setServiceInfo(cursor.getString(4));
+            serviceData.setVehicleId(cursor.getString(5));
+        }
+        cursor.close();
+        return  serviceData;
+    }
+
     public List<ServiceData> getAllServiceHistory(){
         List<ServiceData> serviceDatas= new ArrayList<ServiceData>();
 
@@ -112,6 +132,7 @@ public class ServiceDataSource {
             serviceData.setServiceDate(cursor.getString(2));
             serviceData.setServiceSparePart(cursor.getString(3));
             serviceData.setServiceInfo(cursor.getString(4));
+            serviceData.setVehicleId(cursor.getString(5));
 
             serviceDatas.add(serviceData);
             cursor.moveToPrevious();
@@ -119,6 +140,39 @@ public class ServiceDataSource {
 
         cursor.close();
 
+        return serviceDatas;
+    }
+
+    public void updateVehicleList(VehicleData vehicleData){
+        ContentValues values=new ContentValues();
+        values.put(newSqlLiteHelper.COLUMN_VEHICLE_LAST_SERVICE_DATE,vehicleData.getVehicleLastServiceDate());
+        String selection=newSqlLiteHelper.COLUMN_VEHICLE_ID+" LIKE?";
+        String[] arg={String.valueOf(vehicleData.getVehicleId())};
+        int number=database.update(newSqlLiteHelper.TABLE_VEHICLE,values,selection,arg);
+
+    }
+
+    public List<ServiceData> getAllServiceHistory(VehicleData vehicleData){
+        List<ServiceData> serviceDatas= new ArrayList<ServiceData>();
+        String order="date("+newSqlLiteHelper.COLUMN_SERVICE_DATE+ ") ASC";
+        String selection=newSqlLiteHelper.COLUMN_VEHICLE_ID+" LIKE?";
+        String[] arg={String.valueOf(vehicleData.getVehicleId())};
+        Cursor cursor = database.query(newSqlLiteHelper.TABLE_SERVICE,
+                allColums, selection, arg, null, null, order);
+        cursor.moveToLast();
+        while(!cursor.isBeforeFirst()){
+            ServiceData serviceData=new ServiceData();
+            serviceData.setServiceName(cursor.getString(1));
+            serviceData.setServiceDate(cursor.getString(2));
+            serviceData.setServiceSparePart(cursor.getString(3));
+            serviceData.setServiceInfo(cursor.getString(4));
+            serviceData.setVehicleId(cursor.getString(5));
+
+            serviceDatas.add(serviceData);
+            cursor.moveToPrevious();
+        }
+
+        cursor.close();
         return serviceDatas;
     }
 

@@ -1,6 +1,7 @@
 package com.rzk.servicehistory;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.rzk.servicehistory.database.ServiceData;
 import com.rzk.servicehistory.database.ServiceDataSource;
+import com.rzk.servicehistory.database.VehicleData;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -26,12 +28,22 @@ public class AddServiceActivity extends ActionBarActivity {
     private DatePickerDialog dateDialog;
     private EditText editTextDate;
     private ServiceDataSource dataSource;
+    private VehicleData vehicleData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_service_layout);
 
         dataSource=new ServiceDataSource(this);
+        vehicleData=new VehicleData();
+        Intent intent=getIntent();
+        if(intent!=null){
+            Bundle bundle=intent.getExtras();
+            vehicleData.setVehicleId(bundle.getString("vehicleId"));
+            vehicleData.setVehicleName(bundle.getString("vehicleName"));
+            vehicleData.setVehicleData((bundle.getString("vehicleData")));
+            vehicleData.setVehicleLastServiceDate(bundle.getString("vehicleLastServiceData"));
+        }
 
         editTextDate=(EditText) findViewById(R.id.edit_text_date);
         editTextDate.setInputType(InputType.TYPE_NULL);
@@ -58,16 +70,19 @@ public class AddServiceActivity extends ActionBarActivity {
             textViewSparepart=(TextView)findViewById(R.id.editText_sparepart);
             textViewInfo=(TextView)findViewById(R.id.editText_detail_service);
 
+            vehicleData.setVehicleLastServiceDate(textViewDate.getText().toString());
             ServiceData serviceData=new ServiceData();
             serviceData.setServiceName(textViewServiceName.getText().toString());
             serviceData.setServiceDate(textViewDate.getText().toString());
             serviceData.setServiceSparePart(textViewSparepart.getText().toString());
             serviceData.setServiceInfo(textViewInfo.getText().toString());
+            serviceData.setVehicleId(vehicleData.getVehicleId());
 
             dataSource.createServiceData(serviceData);
+            dataSource.updateVehicleList(vehicleData);
             dataSource.close();
 
-            Toast.makeText(this,"Recent Service Data Saved",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Recent Service Data Saved "+vehicleData.getVehicleLastServiceDate(),Toast.LENGTH_SHORT).show();
             AddServiceActivity.this.finish();
         }
 
@@ -93,7 +108,7 @@ public class AddServiceActivity extends ActionBarActivity {
 
     public void setDate(View v){
 
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
        // final EditText editTextDate=(EditText) findViewById(R.id.edit_text_date);
         Calendar newCalendar = Calendar.getInstance();

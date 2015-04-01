@@ -33,6 +33,7 @@ public class AddVehicleActivity extends ActionBarActivity {
             Toast.makeText(this,"Complete Vehicle ID and Vehicle Name",Toast.LENGTH_SHORT);
         }
         else{
+            //int savedata=0;
             ServiceDataSource dataSource=new ServiceDataSource(this);
             VehicleData vehicleData=new VehicleData();
             vehicleData.setVehicleId(editTextVehicleID.getText().toString());
@@ -41,11 +42,22 @@ public class AddVehicleActivity extends ActionBarActivity {
             try {
                 dataSource.open();
                 dataSource.createVehicleData(vehicleData);
+                //dataSource.close();
+                //savedata=1;
+            } catch (Exception e) {
+               // e.printStackTrace();
+                //savedata=0;
+                editTextVehicleID.setText("");
+                editTextVehicleID.setFocusable(true);
+                Toast.makeText(this,"VehicleId already exist",Toast.LENGTH_SHORT).show();
                 dataSource.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
-            finish();
+            dataSource.close();
+            //if(savedata==1){
+                finish();
+           // }
+
+
         }
 
     }

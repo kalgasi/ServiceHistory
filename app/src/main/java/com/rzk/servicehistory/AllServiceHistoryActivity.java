@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.rzk.servicehistory.database.ServiceData;
 import com.rzk.servicehistory.database.ServiceDataSource;
+import com.rzk.servicehistory.database.VehicleData;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -21,17 +22,29 @@ import java.util.List;
 public class AllServiceHistoryActivity extends ActionBarActivity {
     private ServiceDataSource dataSource;
     List<ServiceData> dataService;
+    private VehicleData vehicleData;
+    private Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_service_history_layout);
         dataSource=new ServiceDataSource(this);
         ListView listView=(ListView)findViewById(R.id.list_all_history);
+        vehicleData=new VehicleData();
+        Intent intent=getIntent();
+        if(intent!=null){
+            bundle=intent.getExtras();
+
+            vehicleData.setVehicleId(bundle.getString("vehicleId"));
+            vehicleData.setVehicleName(bundle.getString("vehicleName"));
+            vehicleData.setVehicleData((bundle.getString("vehicleData")));
+            vehicleData.setVehicleLastServiceDate(bundle.getString("vehicleLastServiceData"));
+        }
 
         try {
             dataSource.open();
-            dataService=dataSource.getAllServiceHistory();
-
+            dataService=dataSource.getAllServiceHistory(vehicleData);
+            //Toast.makeText(this,dataService.size(),Toast.LENGTH_SHORT).show();
             //listView.set;
            ArrayAdapter<ServiceData> adapter=new ArrayAdapter<ServiceData>(this, android.R.layout.simple_list_item_1,dataService);
             listView.setAdapter(adapter);
@@ -45,7 +58,7 @@ public class AllServiceHistoryActivity extends ActionBarActivity {
                 }
             });
         } catch (SQLException e) {
-           // Toast.makeText(this, "No Data Service", Toast.LENGTH_SHORT).show();
+           Toast.makeText(this, "No Data Service", Toast.LENGTH_SHORT).show();
         }
         dataSource.close();
 

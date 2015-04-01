@@ -7,28 +7,43 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.rzk.servicehistory.database.VehicleData;
+
 
 public class MenuActivity extends ActionBarActivity {
-
+private VehicleData vehicleData;
+private Bundle vehicleBundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_layout);
+        Intent intent=getIntent();
+        vehicleData=new VehicleData();
+        if(intent!=null){
+            vehicleBundle=intent.getExtras();
+            vehicleData.setVehicleId(vehicleBundle.getString("vehicleId"));
+            vehicleData.setVehicleName(vehicleBundle.getString("vehicleName"));
+            vehicleData.setVehicleData(vehicleBundle.getString("vehicleData"));
+            vehicleData.setVehicleLastServiceDate(vehicleBundle.getString("vehicleLastServiceData"));
+        }
     }
 
     public void addServiceHistory(View v){
         Intent intent=new Intent(this,AddServiceActivity.class);
+        intent.putExtras(vehicleBundle);
         startActivity(intent);
     }
 
     public void viewAllServiceHistory(View v){
         Intent intent=new Intent(this,AllServiceHistoryActivity.class);
+        intent.putExtras(vehicleBundle);
         startActivity(intent);
 
     }
 
     public void viewLastServiceHistory(View v){
         Intent intent=new Intent(this,ShowService.class);
+        intent.putExtras(vehicleBundle);
         startActivity(intent);
     }
 
