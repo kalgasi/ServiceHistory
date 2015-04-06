@@ -186,8 +186,8 @@ public class ServiceDataSource {
     public void deleteVehicleData(VehicleData vehicleData){
         String vehicleId=vehicleData.getVehicleId();
         System.out.println(vehicleData.getVehicleName()+" data deleted");
-        database.delete(newSqlLiteHelper.TABLE_VEHICLE,newSqlLiteHelper.COLUMN_VEHICLE_ID + " LIKE "+vehicleId,null);
-        database.delete(newSqlLiteHelper.TABLE_SERVICE,newSqlLiteHelper.COLUMN_VEHICLE_ID+ " LIKE "+vehicleId,null);
+        database.delete(newSqlLiteHelper.TABLE_VEHICLE,newSqlLiteHelper.COLUMN_VEHICLE_ID + " LIKE '"+vehicleId+"'",null);
+        database.delete(newSqlLiteHelper.TABLE_SERVICE,newSqlLiteHelper.COLUMN_VEHICLE_ID+ " LIKE '"+vehicleId+"'",null);
     }
 
 
