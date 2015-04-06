@@ -48,6 +48,19 @@ public class RootMenuActivity extends ActionBarActivity {
 
                 }
             });
+            listViewVehicle.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    try {
+                        dataSource.open();
+                        dataSource.deleteVehicleData(vehicleDatas.get(position));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    dataSource.close();
+                    return true;
+                }
+            });
         }
         else{
             listViewVehicle.setVisibility(View.GONE);
