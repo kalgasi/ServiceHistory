@@ -128,6 +128,7 @@ public class ServiceDataSource {
 
         while(!cursor.isBeforeFirst()){
             ServiceData serviceData=new ServiceData();
+            serviceData.setId(cursor.getLong(0));
             serviceData.setServiceName(cursor.getString(1));
             serviceData.setServiceDate(cursor.getString(2));
             serviceData.setServiceSparePart(cursor.getString(3));
@@ -162,6 +163,7 @@ public class ServiceDataSource {
         cursor.moveToLast();
         while(!cursor.isBeforeFirst()){
             ServiceData serviceData=new ServiceData();
+            serviceData.setId(cursor.getLong(0));
             serviceData.setServiceName(cursor.getString(1));
             serviceData.setServiceDate(cursor.getString(2));
             serviceData.setServiceSparePart(cursor.getString(3));
@@ -174,6 +176,11 @@ public class ServiceDataSource {
 
         cursor.close();
         return serviceDatas;
+    }
+    public void deleteDataService(ServiceData serviceData){
+        long id=serviceData.getId();
+        System.out.println("Service "+serviceData.getServiceName()+ id+" deleted");
+        database.delete(newSqlLiteHelper.TABLE_SERVICE,newSqlLiteHelper.COLUMN_ID+" = "+ id,null);
     }
 
 

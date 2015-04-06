@@ -24,12 +24,13 @@ public class AllServiceHistoryActivity extends ActionBarActivity {
     List<ServiceData> dataService;
     private VehicleData vehicleData;
     private Bundle bundle;
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_service_history_layout);
         dataSource=new ServiceDataSource(this);
-        ListView listView=(ListView)findViewById(R.id.list_all_history);
+        listView=(ListView)findViewById(R.id.list_all_history);
         vehicleData=new VehicleData();
         Intent intent=getIntent();
         if(intent!=null){
@@ -46,7 +47,7 @@ public class AllServiceHistoryActivity extends ActionBarActivity {
             dataService=dataSource.getAllServiceHistory(vehicleData);
             //Toast.makeText(this,dataService.size(),Toast.LENGTH_SHORT).show();
             //listView.set;
-           ArrayAdapter<ServiceData> adapter=new ArrayAdapter<ServiceData>(this, android.R.layout.simple_list_item_1,dataService);
+           final ArrayAdapter<ServiceData> adapter=new ArrayAdapter<ServiceData>(this, android.R.layout.simple_list_item_1,dataService);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -57,11 +58,34 @@ public class AllServiceHistoryActivity extends ActionBarActivity {
                     showServiceDetail(serviceData);
                 }
             });
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    deleteData(position);
+                    showMessage(dataService.get(position).getServiceName()+" data is deleted");
+                    dataService.remove(position);
+                    adapter.notifyDataSetChanged();
+
+                    return true;
+                }
+            });
         } catch (SQLException e) {
            Toast.makeText(this, "No Data Service", Toast.LENGTH_SHORT).show();
         }
         dataSource.close();
 
+    }
+
+    public void deleteData(int position){
+//        Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+        try {
+            dataSource.open();
+            dataSource.deleteDataService(dataService.get(position));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        dataSource.close();
+        //listView.remove
     }
 
     public void showServiceDetail(ServiceData data){
