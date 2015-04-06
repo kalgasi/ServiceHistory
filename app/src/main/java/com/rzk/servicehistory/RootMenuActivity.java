@@ -23,6 +23,7 @@ public class RootMenuActivity extends ActionBarActivity {
     private ListView listViewVehicle;
     List<VehicleData> vehicleDatas;
     private ServiceDataSource dataSource;
+    ArrayAdapter<VehicleData> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,8 @@ public class RootMenuActivity extends ActionBarActivity {
                     try {
                         dataSource.open();
                         dataSource.deleteVehicleData(vehicleDatas.get(position));
+                        vehicleDatas.remove(position);
+                        arrayAdapter.notifyDataSetChanged();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -108,7 +111,7 @@ public class RootMenuActivity extends ActionBarActivity {
         try {
             dataSource.open();
             vehicleDatas=dataSource.getAllvehicleData();
-            ArrayAdapter<VehicleData> arrayAdapter=new ArrayAdapter<VehicleData>(this,
+            arrayAdapter=new ArrayAdapter<VehicleData>(this,
                     android.R.layout.simple_list_item_1,vehicleDatas);
             listViewVehicle.setAdapter(arrayAdapter);
         } catch (SQLException e) {
