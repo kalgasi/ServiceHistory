@@ -39,21 +39,28 @@ public class AddVehicleActivity extends ActionBarActivity {
             vehicleData.setVehicleId(editTextVehicleID.getText().toString());
             vehicleData.setVehicleName(editTextVehicleName.getText().toString());
             vehicleData.setVehicleData(editTextVehicleInfo.getText().toString());
+            boolean data=true;
             try {
                 dataSource.open();
+                data=dataSource.checkVehicleId(vehicleData.getVehicleId());
+                if(data){
+                    dataSource.close();
+                    Toast.makeText(this,"Vehicle Id already exist",Toast.LENGTH_SHORT).show();
+                    editTextVehicleID.setText("");
+                    editTextVehicleID.setFocusable(true);
+                }
+                else
                 dataSource.createVehicleData(vehicleData);
                 //dataSource.close();
                 //savedata=1;
             } catch (Exception e) {
                // e.printStackTrace();
                 //savedata=0;
-                editTextVehicleID.setText("");
-                editTextVehicleID.setFocusable(true);
-                Toast.makeText(this,"VehicleId already exist",Toast.LENGTH_SHORT).show();
-                dataSource.close();
+
             }
             dataSource.close();
             //if(savedata==1){
+            if(!data)
                 finish();
            // }
 
@@ -61,6 +68,7 @@ public class AddVehicleActivity extends ActionBarActivity {
         }
 
     }
+
 
     public void resetVehicleData(View v){
         EditText editText;
@@ -79,6 +87,7 @@ public class AddVehicleActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_add_vehicle, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

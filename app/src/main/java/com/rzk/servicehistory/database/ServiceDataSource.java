@@ -190,5 +190,18 @@ public class ServiceDataSource {
         database.delete(newSqlLiteHelper.TABLE_SERVICE,newSqlLiteHelper.COLUMN_VEHICLE_ID+ " LIKE '"+vehicleId+"'",null);
     }
 
+    public boolean checkVehicleId(String vehicleId){
+        Cursor cursor=database.query(newSqlLiteHelper.TABLE_VEHICLE,AllVehicleColumn," lower("+
+                newSqlLiteHelper.COLUMN_VEHICLE_ID+") LIKE lower('"+vehicleId+"')",null,null,null,null);
+        if(cursor.moveToFirst()){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+        //return false;
+    }
+
 
 }
