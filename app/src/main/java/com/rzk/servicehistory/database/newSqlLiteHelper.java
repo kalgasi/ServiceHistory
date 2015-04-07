@@ -37,9 +37,17 @@ public class newSqlLiteHelper extends SQLiteOpenHelper {
             + " text not null, "+COLUMN_SERVICE_DATE+" text not null, "+ COLUMN_SERVICE_SPAREPART
             + " text, "+COLUMN_SERVICE_INFO+" text, "+COLUMN_VEHICLE_ID+ " text);";
 
-
-
-
+    public static final String TABLE_REMINDER="reminder";
+    public static final String COLUMN_REMINDER_STATUS="status";
+    public static final String COLUMN_REMINDER_DETAIL="info";
+    public static final String COLUMN_REMINDER_DATE="date";
+    private static final String DATABASE_CREATE_TABLE_REMINDER="create table "
+            + TABLE_REMINDER + "("+COLUMN_VEHICLE_ID
+            + " text, "+COLUMN_REMINDER_DATE
+            + " text, "+COLUMN_SERVICE_INFO
+            + " text, "+COLUMN_REMINDER_DETAIL
+            + " text, "+ COLUMN_REMINDER_STATUS
+            + " text);";
 
     public newSqlLiteHelper(Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
@@ -49,6 +57,7 @@ public class newSqlLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE_TABLE_VEHICLE);
         db.execSQL(DATABASE_CREATE_TABLE_SERVICE);
+        db.execSQL(DATABASE_CREATE_TABLE_REMINDER);
 
     }
 
@@ -59,6 +68,7 @@ public class newSqlLiteHelper extends SQLiteOpenHelper {
                         + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SERVICE);
         db.execSQL("DROP TABLE IF EXIST "+ TABLE_VEHICLE);
+        db.execSQL("DROP TABLE IF EXIST "+ TABLE_REMINDER);
         onCreate(db);
 
     }

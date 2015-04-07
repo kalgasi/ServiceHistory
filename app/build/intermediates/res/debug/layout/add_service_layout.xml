@@ -1,0 +1,120 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent">
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:isScrollContainer="true"
+    >
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/service_title"
+        android:id="@+id/textView"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+
+
+        />
+
+    <LinearLayout  android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="setDate"
+            android:text="Set Service Date"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/edit_text_date"
+
+            android:hint="Service Date"
+            />
+
+        </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_sparepart"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sparepart"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:inputType="textMultiLine"
+        android:id="@+id/editText_sparepart"
+        android:lines="2"
+        android:gravity="start|top"/>
+
+
+    <TextView
+        android:id="@+id/tv_keterangan_service"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/keterangan"
+        />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:inputType="textMultiLine"
+        android:id="@+id/editText_detail_service"
+        android:lines="2"
+        android:gravity="start|top"/>
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save_button"
+                android:onClick="saveData"
+                android:gravity="center"/>
+            </LinearLayout>-->
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/save_button"
+                android:onClick="saveData"
+                android:gravity="center"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reset_button"
+                android:onClick="resetData"/>
+
+       <!-- </LinearLayout>-->
+
+
+
+</LinearLayout>
+</ScrollView><!-- From: file:/D:/latihan/ServiceHistory/app/src/main/res/layout/add_service_layout.xml -->
