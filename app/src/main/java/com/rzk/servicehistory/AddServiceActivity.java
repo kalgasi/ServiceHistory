@@ -123,22 +123,9 @@ public class AddServiceActivity extends ActionBarActivity {
 
         );
         dateDialog.show();
-        /*
-        Calendar mcurrentDate=Calendar.getInstance();
-        mYear=mcurrentDate.get(Calendar.YEAR);
-        mMonth=mcurrentDate.get(Calendar.MONTH);
-        mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog mDatePicker=new DatePickerDialog(AddServiceActivity.this, new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                // TODO Auto-generated method stub
-                    /*      Your code   to get date and time
-            }
-        },mYear, mMonth, mDay);
-        mDatePicker.setTitle("Select date");
-        mDatePicker.show();*/
     }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -159,5 +146,5 @@ public class AddServiceActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

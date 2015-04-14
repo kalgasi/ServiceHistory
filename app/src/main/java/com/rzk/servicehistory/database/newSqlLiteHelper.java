@@ -44,7 +44,7 @@ public class newSqlLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_TABLE_REMINDER="create table "
             + TABLE_REMINDER + "("+COLUMN_VEHICLE_ID
             + " text, "+COLUMN_REMINDER_DATE
-            + " text, "+COLUMN_SERVICE_INFO
+           // + " text, "+COLUMN_SERVICE_INFO
             + " text, "+COLUMN_REMINDER_DETAIL
             + " text, "+ COLUMN_REMINDER_STATUS
             + " text);";

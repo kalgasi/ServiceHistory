@@ -22,6 +22,8 @@ public class ServiceDataSource {
     private String allColums[]={newSqlLiteHelper.COLUMN_ID,newSqlLiteHelper.COLUMN_SERVICE_NAME,
     newSqlLiteHelper.COLUMN_SERVICE_DATE,newSqlLiteHelper.COLUMN_SERVICE_SPAREPART
     ,newSqlLiteHelper.COLUMN_SERVICE_INFO,newSqlLiteHelper.COLUMN_VEHICLE_ID};
+    private String reminderColumns[]={newSqlLiteHelper.COLUMN_VEHICLE_ID,newSqlLiteHelper.COLUMN_REMINDER_DATE,
+    newSqlLiteHelper.COLUMN_REMINDER_DETAIL,newSqlLiteHelper.COLUMN_REMINDER_STATUS};
 
     public ServiceDataSource(Context context){
         helper=new newSqlLiteHelper(context);
@@ -43,8 +45,8 @@ public class ServiceDataSource {
         values.put(newSqlLiteHelper.COLUMN_VEHICLE_ID,data.getVehicleId());
         long insertId=database.insert(newSqlLiteHelper.TABLE_SERVICE,null,values);
 
-        Cursor cursor=database.query(newSqlLiteHelper.TABLE_SERVICE,allColums
-        ,newSqlLiteHelper.COLUMN_ID + " = "+insertId,null,null,null,null);
+        Cursor cursor=database.query(newSqlLiteHelper.TABLE_SERVICE, allColums
+                , newSqlLiteHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
 
         cursor.moveToFirst();
         cursor.close();
@@ -55,8 +57,8 @@ public class ServiceDataSource {
         ContentValues values=new ContentValues();
         values.put(newSqlLiteHelper.COLUMN_VEHICLE_ID,vehicleData.getVehicleId());
         values.put(newSqlLiteHelper.COLUMN_VEHICLE_NAME,vehicleData.getVehicleName());
-        values.put(newSqlLiteHelper.COLUMN_VEHICLE_DATA,vehicleData.getVehicleData());
-        values.put(newSqlLiteHelper.COLUMN_VEHICLE_LAST_SERVICE_DATE,vehicleData.getVehicleLastServiceDate());
+        values.put(newSqlLiteHelper.COLUMN_VEHICLE_DATA, vehicleData.getVehicleData());
+        values.put(newSqlLiteHelper.COLUMN_VEHICLE_LAST_SERVICE_DATE, vehicleData.getVehicleLastServiceDate());
         long insertId=database.insert(newSqlLiteHelper.TABLE_VEHICLE, null, values);
 
 
@@ -187,7 +189,8 @@ public class ServiceDataSource {
         String vehicleId=vehicleData.getVehicleId();
         System.out.println(vehicleData.getVehicleName()+" data deleted");
         database.delete(newSqlLiteHelper.TABLE_VEHICLE, newSqlLiteHelper.COLUMN_VEHICLE_ID + " LIKE '" + vehicleId + "'", null);
-        database.delete(newSqlLiteHelper.TABLE_SERVICE,newSqlLiteHelper.COLUMN_VEHICLE_ID+ " LIKE '"+vehicleId+"'",null);
+        database.delete(newSqlLiteHelper.TABLE_SERVICE, newSqlLiteHelper.COLUMN_VEHICLE_ID + " LIKE '" + vehicleId + "'", null);
+        database.delete(newSqlLiteHelper.TABLE_REMINDER,newSqlLiteHelper.COLUMN_VEHICLE_ID+ " LIKE '"+vehicleId+"'",null);
     }
 
     public boolean checkVehicleId(String vehicleId){
@@ -207,20 +210,72 @@ public class ServiceDataSource {
         ContentValues contentValues=new ContentValues();
         contentValues.put(newSqlLiteHelper.COLUMN_VEHICLE_ID,serviceReminder.getVehicleId());
         contentValues.put(newSqlLiteHelper.COLUMN_REMINDER_DATE,serviceReminder.getDate());
-        contentValues.put(newSqlLiteHelper.COLUMN_REMINDER_DETAIL,serviceReminder.getInfo());
-        contentValues.put(newSqlLiteHelper.COLUMN_REMINDER_STATUS,serviceReminder.getStatus());
+        contentValues.put(newSqlLiteHelper.COLUMN_REMINDER_DETAIL,serviceReminder.getDetail());
+        contentValues.put(newSqlLiteHelper.COLUMN_REMINDER_STATUS, serviceReminder.getStatus());
         long insertId=database.insert(newSqlLiteHelper.TABLE_REMINDER,null,contentValues);
     }
 
     public void deleteServiceReminder(ServiceReminder serviceReminder){
+        String condition=newSqlLiteHelper.COLUMN_VEHICLE_ID+" LIKE '"+serviceReminder.getVehicleId()
+                +"' AND "+newSqlLiteHelper.COLUMN_REMINDER_DATE+" LIKE '"+serviceReminder.getDate()
+                +"' " +" AND "+newSqlLiteHelper.COLUMN_REMINDER_DETAIL+" LIKE '"
+                +serviceReminder.getDetail()+"'";
+        database.delete(newSqlLiteHelper.TABLE_REMINDER,condition,null);
+    }
 
+    public List<ServiceReminder> getAllServiceReminder(){
+        List<ServiceReminder> serviceReminders=new ArrayList<ServiceReminder>();
+        String order="date("+newSqlLiteHelper.COLUMN_REMINDER_DATE+ ") ASC";
+        Cursor cursor = database.query(newSqlLiteHelper.TABLE_REMINDER,
+                reminderColumns, null, null, null, null, order);
+        cursor.moveToLast();
+        while (!cursor.isBeforeFirst()){
+            ServiceReminder serviceReminder=new ServiceReminder();
+            serviceReminder.setVehicleId(cursor.getString(0));
+            serviceReminder.setDate(cursor.getString(1));
+            serviceReminder.setDetail(cursor.getString(2));
+            serviceReminder.setStatus(cursor.getString(3));
+
+            serviceReminders.add(serviceReminder);
+
+            cursor.moveToPrevious();
+        }
+
+        return  serviceReminders;
     }
 
     public List<ServiceReminder> getAllServiceReminder(ServiceReminder serviceReminder){
         List<ServiceReminder> serviceReminders=new ArrayList<ServiceReminder>();
+        String order="date("+newSqlLiteHelper.COLUMN_REMINDER_DATE+ ") ASC";
+        Cursor cursor = database.query(newSqlLiteHelper.TABLE_REMINDER,
+                reminderColumns, newSqlLiteHelper.COLUMN_VEHICLE_ID +" LIKE '"+
+                        serviceReminder.getVehicleId()+"'", null, null, null, order);
+
 
         return  serviceReminders;
     }
+
+    public int getCountServiceReminder(){
+        int total=0;
+        String query="select * from "+newSqlLiteHelper.TABLE_REMINDER;
+        Cursor cursor=database.rawQuery(query, null);
+        total=cursor.getCount();
+        return total;
+    }
+
+    public String getVehicleName(String vehicleId){
+        String name="";
+
+        String query="select "+ newSqlLiteHelper.COLUMN_VEHICLE_NAME+" from "
+                +newSqlLiteHelper.TABLE_VEHICLE+ " where "+newSqlLiteHelper.COLUMN_VEHICLE_ID
+                + " LIKE '"+vehicleId+"'";
+        Cursor cursor=database.rawQuery(query,null);
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast())
+            name=cursor.getString(0);
+        return name;
+    }
+
 
 
 }

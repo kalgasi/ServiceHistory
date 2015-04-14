@@ -10,15 +10,12 @@
         <activity
             android:name=".MenuActivity"
             android:label="@string/app_name" >
-
         </activity>
         <activity
             android:name=".AddServiceActivity"
             android:label="@string/title_activity_add_service"
-            android:parentActivityName=".MenuActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rzk.servicehistory.MenuActivity" />
+             >
+
         </activity>
         <activity
             android:name=".ShowService"
@@ -48,6 +45,18 @@
         <activity
             android:name=".AddVehicleActivity"
             android:label="@string/title_activity_add_vehicle" >
+        </activity>
+        <activity
+            android:name=".AddReminder"
+            android:label="@string/title_activity_add_reminder" >
+        </activity>
+        <activity
+            android:name=".ViewReminderActivity"
+            android:label="@string/title_activity_view_reminder" >
+        </activity>
+        <activity
+            android:name=".ViewAllReminder"
+            android:label="@string/title_activity_view_all_reminder" >
         </activity>
     </application>
 

@@ -2,6 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_notif"
+        android:focusable="false"
+        android:onClick="showReminder"
+        android:clickable="true"
+        android:textStyle="italic"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:visibility="gone"
+        />
 
     <Button
         android:id="@+id/button_add_vehicle"
@@ -13,6 +24,7 @@
         android:id="@+id/list_vehicle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         ></ListView>
 
 

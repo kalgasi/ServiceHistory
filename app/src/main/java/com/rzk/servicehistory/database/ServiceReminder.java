@@ -6,7 +6,8 @@ package com.rzk.servicehistory.database;
 public class ServiceReminder {
     private String VehicleId;
     private String Date;
-    private String info;
+    //private String info;
+    private  String detail;
     private String status;
 
     public String getVehicleId() {
@@ -25,13 +26,13 @@ public class ServiceReminder {
         Date = date;
     }
 
-    public String getInfo() {
+    /*public String getInfo() {
         return info;
-    }
+    }*/
 
-    public void setInfo(String info) {
+   /* public void setInfo(String info) {
         this.info = info;
-    }
+    }*/
 
     public String getStatus() {
         return status;
@@ -42,6 +43,14 @@ public class ServiceReminder {
     }
 
     public String toString(){
-        return getVehicleId()+" "+getDate()+" "+getInfo();
+        return getVehicleId()+" "+getDate()+" "+getDetail();
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 }

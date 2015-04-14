@@ -10,6 +10,11 @@
     <string name="reset_button">Reset</string>
     <string name="keterangan">Info</string>
     <string name="add_vehicle">Add Vehicle</string>
+    <string name="add_reminder">Add Service Reminder</string>
+    <string name="set_reminder_date">Service Date</string>
+    <string name="reminder_detail">Detail</string>
+    <string name="add_reminder_button">Add</string>
+    <string name="button_cancel">Cancel</string>
 
     <string name="vehicle_id">Vehicle ID</string>
     <string name="vehicle_name">Vehicle Name</string>
@@ -25,4 +30,8 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_add_vehicle">Add Vehicle</string>
+    <string name="title_activity_add_reminder">Add Service Reminder</string>
+    <string name="title_activity_view_reminder">View Reminder</string>
+    <string name="title_activity_view_all_reminder">Reminder</string>
+    <string name="reminder_date">Date</string>
 </resources>

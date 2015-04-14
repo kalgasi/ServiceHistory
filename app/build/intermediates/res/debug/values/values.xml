@@ -162,18 +162,25 @@
     <!-- From: file:/D:/latihan/ServiceHistory/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="action_settings">Settings</string>
+    <string name="add_reminder">Add Service Reminder</string>
+    <string name="add_reminder_button">Add</string>
     <string name="add_vehicle">Add Vehicle</string>
     <string name="app_name">Service History</string>
     <string name="button_add_service"> Add Service History</string>
+    <string name="button_cancel">Cancel</string>
     <string name="button_show_all_service">All Service History</string>
     <string name="button_show_last_service">Last Service</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_world">Hello world!</string>
     <string name="keterangan">Info</string>
+    <string name="reminder_date">Date</string>
+    <string name="reminder_detail">Detail</string>
     <string name="reset_button">Reset</string>
     <string name="save_button">Save</string>
     <string name="service_title">Service Name</string>
+    <string name="set_reminder_date">Service Date</string>
     <string name="sparepart">Sparepart</string>
+    <string name="title_activity_add_reminder">Add Service Reminder</string>
     <string name="title_activity_add_service">Add Service</string>
     <string name="title_activity_add_vehicle">Add Vehicle</string>
     <string name="title_activity_all_service_history">All Service History</string>
@@ -181,6 +188,8 @@
     <string name="title_activity_service_detail">ServiceDetailActivity</string>
     <string name="title_activity_service_history">Service History</string>
     <string name="title_activity_show_service">Service History</string>
+    <string name="title_activity_view_all_reminder">Reminder</string>
+    <string name="title_activity_view_reminder">View Reminder</string>
     <string name="vehicle_id">Vehicle ID</string>
     <string name="vehicle_name">Vehicle Name</string>
     <!-- From: file:/D:/latihan/ServiceHistory/app/src/main/res/values/styles.xml -->

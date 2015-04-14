@@ -47,7 +47,13 @@ private Bundle vehicleBundle;
         startActivity(intent);
     }
 
+    public void createServiceReminder(View v){
+        Intent intent=new Intent(this,AddReminder.class);
+        intent.putExtras(vehicleBundle);
+        startActivity(intent);
+    }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -68,5 +74,5 @@ private Bundle vehicleBundle;
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }
