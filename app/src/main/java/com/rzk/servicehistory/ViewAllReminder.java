@@ -30,13 +30,19 @@ public class ViewAllReminder extends ActionBarActivity {
 
         listViewReminder=(ListView) findViewById(R.id.list_all_reminder);
         dataSource=new ServiceDataSource(this);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         try {
             dataSource.open();
             serviceReminders=dataSource.getAllServiceReminder();
             final ArrayAdapter<ServiceReminder> adapter=new ArrayAdapter<ServiceReminder>(this,
                     android.R.layout.simple_list_item_1,serviceReminders);
             listViewReminder.setAdapter(adapter);
-           // Toast.makeText(this,serviceReminders.get(0).getVehicleId(),Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this,serviceReminders.get(0).getVehicleId(),Toast.LENGTH_SHORT).show();
             listViewReminder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -48,7 +54,9 @@ public class ViewAllReminder extends ActionBarActivity {
             e.printStackTrace();
         }
         dataSource.close();
+
     }
+
     public void showServiceReminderDetail(ServiceReminder serviceReminder){
         Intent intent=new Intent(this,ViewReminderActivity.class);
         intent.putExtras(createServiceReminderBundle(serviceReminder));

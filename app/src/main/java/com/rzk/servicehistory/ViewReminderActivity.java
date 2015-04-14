@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.rzk.servicehistory.database.ServiceDataSource;
@@ -52,6 +53,17 @@ public class ViewReminderActivity extends ActionBarActivity {
             textViewDetail.setText(serviceReminder.getDetail());
         }
 
+    }
+
+    public void deleteReminder(View view){
+        try {
+            dataSource.open();
+            dataSource.deleteServiceReminder(serviceReminder);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        dataSource.close();
+        finish();
     }
 
   /*  @Override

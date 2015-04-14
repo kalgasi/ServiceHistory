@@ -168,6 +168,7 @@
     <string name="app_name">Service History</string>
     <string name="button_add_service"> Add Service History</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_delete">Delete Reminder</string>
     <string name="button_show_all_service">All Service History</string>
     <string name="button_show_last_service">Last Service</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -34,4 +34,5 @@
     <string name="title_activity_view_reminder">View Reminder</string>
     <string name="title_activity_view_all_reminder">Reminder</string>
     <string name="reminder_date">Date</string>
+    <string name="button_delete">Delete Reminder</string>
 </resources>
