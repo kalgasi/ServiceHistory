@@ -12,6 +12,7 @@
         android:textStyle="italic"
         android:textAppearance="?android:textAppearanceLarge"
         android:visibility="gone"
+        android:layout_marginBottom="20dp"
         />
 
     <Button
