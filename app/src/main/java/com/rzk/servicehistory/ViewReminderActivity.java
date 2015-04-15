@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rzk.servicehistory.database.ServiceDataSource;
 import com.rzk.servicehistory.database.ServiceReminder;
@@ -62,6 +63,7 @@ public class ViewReminderActivity extends ActionBarActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        Toast.makeText(this,"Reminder Deleted",Toast.LENGTH_SHORT).show();
         dataSource.close();
         finish();
     }
