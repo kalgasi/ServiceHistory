@@ -95,7 +95,7 @@ public class AddReminder extends ActionBarActivity {
                 Date date=dateFormat.parse(editTextDate.getText().toString());
                 Calendar c=Calendar.getInstance();
                 c.setTime(date);
-                c.set(Calendar.HOUR_OF_DAY, 12);
+                c.set(Calendar.HOUR_OF_DAY, 6);
                 c.set(Calendar.MINUTE, 45);
                 c.set(Calendar.SECOND, 1);
                 long when=c.getTimeInMillis();
