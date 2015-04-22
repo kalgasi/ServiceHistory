@@ -13,9 +13,7 @@
         </activity>
         <activity
             android:name=".AddServiceActivity"
-            android:label="@string/title_activity_add_service"
-             >
-
+            android:label="@string/title_activity_add_service" >
         </activity>
         <activity
             android:name=".ShowService"
@@ -58,6 +56,12 @@
             android:name=".ViewAllReminder"
             android:label="@string/title_activity_view_all_reminder" >
         </activity>
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name=".Alarmreceiver"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

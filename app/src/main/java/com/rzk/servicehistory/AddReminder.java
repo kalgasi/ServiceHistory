@@ -1,6 +1,9 @@
 package com.rzk.servicehistory;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -16,8 +19,10 @@ import com.rzk.servicehistory.database.ServiceReminder;
 import com.rzk.servicehistory.database.VehicleData;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -28,6 +33,7 @@ public class AddReminder extends ActionBarActivity {
     ServiceDataSource dataSource;
     private SimpleDateFormat dateFormatter;
     private DatePickerDialog dateDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,7 @@ public class AddReminder extends ActionBarActivity {
         editTextDetail=(EditText) findViewById(R.id.editText_reminder_detail);
         editTextVehicleId=(EditText) findViewById(R.id.editText_vehicle_id);
         editTextVehicleId.setText(vehicleData.getVehicleId());
+
     }
     public void setReminderDate(View v ){
         dateFormatter=new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -82,11 +89,37 @@ public class AddReminder extends ActionBarActivity {
             }
             dataSource.close();
             Toast.makeText(this,"Reminder Added",Toast.LENGTH_SHORT).show();
+            SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+            try {
+                Date date=dateFormat.parse(editTextDate.getText().toString());
+                Calendar c=Calendar.getInstance();
+                c.setTime(date);
+                c.set(Calendar.HOUR_OF_DAY, 12);
+                c.set(Calendar.MINUTE, 45);
+                c.set(Calendar.SECOND, 1);
+                long when=c.getTimeInMillis();
+                Toast.makeText(this,c.getTime().toString(),Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(this,AlarmReceiver.class);
+                intent.putExtra("detail",editTextDetail.getText().toString());
+                AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+                //set the alarm for particular time
+                alarmManager.set(AlarmManager.RTC_WAKEUP,when,
+                        PendingIntent.getBroadcast(this,1,  intent, PendingIntent.FLAG_UPDATE_CURRENT));
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             finish();
         }
         else{
             Toast.makeText(this,"Date And Detail cannot empty",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void addNotification(){
+
     }
 
     public void cancelReminder(View view){
