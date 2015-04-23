@@ -155,7 +155,7 @@ public class RootMenuActivity extends ActionBarActivity {
         return true;
     }
 
-    public void addVehicle(View view){
+    public void addVehicle(){
         Intent intent=new Intent(this,AddVehicleActivity.class);
         startActivity(intent);
     }
@@ -167,7 +167,7 @@ public class RootMenuActivity extends ActionBarActivity {
 
 
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_root_menu, menu);
@@ -182,10 +182,11 @@ public class RootMenuActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add_vehicle) {
+            addVehicle();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 }
