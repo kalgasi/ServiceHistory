@@ -3,6 +3,7 @@ package com.rzk.servicehistory;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.rzk.servicehistory.database.ServiceDataSource;
@@ -27,12 +29,13 @@ import java.util.Locale;
 
 
 public class AddReminder extends ActionBarActivity {
-    private EditText editTextDate,editTextDetail,editTextVehicleId;
+    private EditText editTextDate,editTextDetail,editTextVehicleId,editTextTime;
     private VehicleData vehicleData;
     Bundle bundle;
     ServiceDataSource dataSource;
     private SimpleDateFormat dateFormatter;
     private DatePickerDialog dateDialog;
+    TimePickerDialog pickerDialog;
 
 
     @Override
@@ -53,6 +56,7 @@ public class AddReminder extends ActionBarActivity {
         editTextDetail=(EditText) findViewById(R.id.editText_reminder_detail);
         editTextVehicleId=(EditText) findViewById(R.id.editText_vehicle_id);
         editTextVehicleId.setText(vehicleData.getVehicleId());
+        editTextTime=(EditText)findViewById(R.id.edit_text_reminder_time);
 
     }
     public void setReminderDate(View v ){
@@ -71,6 +75,21 @@ public class AddReminder extends ActionBarActivity {
         dateDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
         dateDialog.show();
 
+    }
+    public void setReminderTime(View v){
+        Calendar currentTime=Calendar.getInstance();
+        int hour=currentTime.get(Calendar.HOUR_OF_DAY);
+        int minute=currentTime.get(Calendar.MINUTE);
+
+        pickerDialog=new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                editTextTime.setText(hourOfDay+":"+minute);
+
+            }
+        },hour,minute,true);
+        pickerDialog.show();
     }
 
     public void addServiceReminder(View view){
@@ -93,13 +112,16 @@ public class AddReminder extends ActionBarActivity {
 
             try {
                 Date date=dateFormat.parse(editTextDate.getText().toString());
+                String s[]=editTextTime.getText().toString().split(":");
+                int h=Integer.parseInt(s[0]);
+                int m=Integer.parseInt(s[1]);
                 Calendar c=Calendar.getInstance();
                 c.setTime(date);
-                c.set(Calendar.HOUR_OF_DAY, 6);
-                c.set(Calendar.MINUTE, 45);
+                c.set(Calendar.HOUR_OF_DAY, h);
+                c.set(Calendar.MINUTE, m);
                 c.set(Calendar.SECOND, 1);
                 long when=c.getTimeInMillis();
-                Toast.makeText(this,c.getTime().toString(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,c.getTime().toString(),Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(this,AlarmReceiver.class);
                 intent.putExtra("detail",editTextDetail.getText().toString());
                 AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);

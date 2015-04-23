@@ -178,6 +178,7 @@
     <string name="keterangan">Info</string>
     <string name="reminder_date">Date</string>
     <string name="reminder_detail">Detail</string>
+    <string name="reminder_time">Remind at</string>
     <string name="reset_button">Reset</string>
     <string name="save_button">Save</string>
     <string name="service_title">Service Name</string>
