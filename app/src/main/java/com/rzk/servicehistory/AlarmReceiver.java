@@ -20,7 +20,7 @@ public class AlarmReceiver extends BroadcastReceiver{
 
         Intent resultIntent=new Intent(context,ViewAllReminder.class);
         PendingIntent resultPendingIntent= PendingIntent.getActivity(context,0,resultIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                0);
         builder.setContentIntent(resultPendingIntent);
         NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);

@@ -127,8 +127,9 @@ public class AddReminder extends ActionBarActivity {
                 AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
                 //set the alarm for particular time
+                int id=(int) System.currentTimeMillis();
                 alarmManager.set(AlarmManager.RTC_WAKEUP,when,
-                        PendingIntent.getBroadcast(this,0,  intent, 0));
+                        PendingIntent.getBroadcast(this,id,  intent, PendingIntent.FLAG_UPDATE_CURRENT));
 
             } catch (ParseException e) {
                 e.printStackTrace();
