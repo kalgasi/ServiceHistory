@@ -99,7 +99,7 @@ public class RootMenuActivity extends ActionBarActivity {
     public void showNotif(int notifCount){
         if(notifCount>0){
             //Toast.makeText(this,notifCount,Toast.LENGTH_SHORT).show();
-            textViewReminder.setText("You have "+ notifCount+" service reminder");
+            textViewReminder.setText( notifCount+" service reminder");
             textViewReminder.setVisibility(View.VISIBLE);
         }
         else{
