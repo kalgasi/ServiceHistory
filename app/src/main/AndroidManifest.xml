@@ -14,14 +14,8 @@
             android:name=".AddServiceActivity"
             android:label="@string/title_activity_add_service"></activity>
         <activity
-            android:name=".ShowService"
-            android:label="@string/title_activity_show_service"></activity>
-        <activity
             android:name=".ServiceHistory"
             android:label="@string/title_activity_service_history"></activity>
-        <activity
-            android:name=".AllServiceHistoryActivity"
-            android:label="@string/title_activity_all_service_history"></activity>
         <activity
             android:name=".ServiceDetailActivity"
             android:label="@string/title_activity_service_detail"></activity>

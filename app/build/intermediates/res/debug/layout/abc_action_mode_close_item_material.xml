@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2014 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2014 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,9 +15,12 @@
 -->
 
 <android.support.v7.internal.widget.TintImageView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/action_mode_close_button"
-    android:contentDescription="@string/abc_action_mode_done" android:focusable="true"
-    android:clickable="true" android:src="?attr/actionModeCloseDrawable"
-    style="?attr/actionModeCloseButtonStyle" android:layout_width="wrap_content"
-    android:layout_height="match_parent" /><!-- From: file:/D:/latihan/ServiceHistory/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_action_mode_close_item_material.xml -->
+             xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/action_mode_close_button"
+             android:contentDescription="@string/abc_action_mode_done"
+             android:focusable="true"
+             android:clickable="true"
+             android:src="?attr/actionModeCloseDrawable"
+             style="?attr/actionModeCloseButtonStyle"
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent" /><!-- From: file:/D:/latihan/ServiceHistory/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_action_mode_close_item_material.xml -->

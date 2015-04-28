@@ -127,18 +127,9 @@ public class MenuActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    public void viewAllServiceHistory(View v) {
-        Intent intent = new Intent(this, AllServiceHistoryActivity.class);
-        intent.putExtras(vehicleBundle);
-        startActivity(intent);
 
-    }
 
-    public void viewLastServiceHistory(View v) {
-        Intent intent = new Intent(this, ShowService.class);
-        intent.putExtras(vehicleBundle);
-        startActivity(intent);
-    }
+
 
     public void createServiceReminder() {
         Intent intent = new Intent(this, AddReminder.class);
