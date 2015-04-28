@@ -21,31 +21,31 @@ import java.util.List;
 
 
 public class MenuActivity extends ActionBarActivity {
-private VehicleData vehicleData;
-private Bundle vehicleBundle;
-private TextView textViewId,textViewName;
-private ServiceDataSource dataSource;
-List<ServiceData> dataService;
-ListView listView;
+    private VehicleData vehicleData;
+    private Bundle vehicleBundle;
+    private TextView textViewId, textViewName;
+    private ServiceDataSource dataSource;
+    List<ServiceData> dataService;
+    ListView listView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_layout);
-        Intent intent=getIntent();
-        vehicleData=new VehicleData();
-        if(intent!=null){
-            vehicleBundle=intent.getExtras();
+        Intent intent = getIntent();
+        vehicleData = new VehicleData();
+        if (intent != null) {
+            vehicleBundle = intent.getExtras();
             vehicleData.setVehicleId(vehicleBundle.getString("vehicleId"));
             vehicleData.setVehicleName(vehicleBundle.getString("vehicleName"));
             vehicleData.setVehicleData(vehicleBundle.getString("vehicleData"));
             vehicleData.setVehicleLastServiceDate(vehicleBundle.getString("vehicleLastServiceData"));
-            textViewId=(TextView) findViewById(R.id.text_vehicle_id);
+            textViewId = (TextView) findViewById(R.id.text_vehicle_id);
             textViewId.setText(vehicleData.getVehicleId());
-            textViewName=(TextView)findViewById(R.id.text_vehicle_name);
+            textViewName = (TextView) findViewById(R.id.text_vehicle_name);
             textViewName.setText(vehicleData.getVehicleName());
-            listView=(ListView)findViewById(R.id.listAllHistory);
+            listView = (ListView) findViewById(R.id.listAllHistory);
 
         }
     }
@@ -53,19 +53,19 @@ ListView listView;
     @Override
     protected void onResume() {
         super.onResume();
-        dataSource=new ServiceDataSource(this);
+        dataSource = new ServiceDataSource(this);
         try {
             dataSource.open();
-            dataService=dataSource.getAllServiceHistory(vehicleData);
+            dataService = dataSource.getAllServiceHistory(vehicleData);
             //Toast.makeText(this,dataService.size(),Toast.LENGTH_SHORT).show();
             //listView.set;
-            final ArrayAdapter<ServiceData> adapter=new ArrayAdapter<ServiceData>(this, android.R.layout.simple_list_item_1,dataService);
+            final ArrayAdapter<ServiceData> adapter = new ArrayAdapter<ServiceData>(this, android.R.layout.simple_list_item_1, dataService);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    ServiceData serviceData=dataService.get(position);
-                    String text=serviceData.getServiceInfo()+" "+serviceData.getServiceSparePart();
+                    ServiceData serviceData = dataService.get(position);
+                    String text = serviceData.getServiceInfo() + " " + serviceData.getServiceSparePart();
                     //showMessage(text);
                     showServiceDetail(serviceData);
                 }
@@ -74,7 +74,7 @@ ListView listView;
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                     deleteData(position);
-                    showMessage(dataService.get(position).getServiceName()+" data is deleted");
+                    showMessage(dataService.get(position).getServiceName() + " data is deleted");
                     dataService.remove(position);
                     adapter.notifyDataSetChanged();
 
@@ -88,28 +88,28 @@ ListView listView;
 
     }
 
-    public void showServiceDetail(ServiceData data){
-        Intent intent=new Intent(this,ServiceDetailActivity.class);
+    public void showServiceDetail(ServiceData data) {
+        Intent intent = new Intent(this, ServiceDetailActivity.class);
 
         intent.putExtras(createServiceDataBundle(data));
         startActivity(intent);
     }
 
-    public Bundle createServiceDataBundle(ServiceData data){
-        Bundle serviceInfo=new Bundle();
-        serviceInfo.putString("serviceName",data.getServiceName());
-        serviceInfo.putString("serviceDate",data.getServiceDate());
+    public Bundle createServiceDataBundle(ServiceData data) {
+        Bundle serviceInfo = new Bundle();
+        serviceInfo.putString("serviceName", data.getServiceName());
+        serviceInfo.putString("serviceDate", data.getServiceDate());
         serviceInfo.putString("serviceSparePart", data.getServiceSparePart());
         serviceInfo.putString("serviceInfo", data.getServiceInfo());
 
         return serviceInfo;
     }
 
-    public void showMessage(String text){
+    public void showMessage(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
-    public void deleteData(int position){
+    public void deleteData(int position) {
 //        Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
         try {
             dataSource.open();
@@ -121,27 +121,27 @@ ListView listView;
         //listView.remove
     }
 
-    public void addServiceHistory(){
-        Intent intent=new Intent(this,AddServiceActivity.class);
+    public void addServiceHistory() {
+        Intent intent = new Intent(this, AddServiceActivity.class);
         intent.putExtras(vehicleBundle);
         startActivity(intent);
     }
 
-    public void viewAllServiceHistory(View v){
-        Intent intent=new Intent(this,AllServiceHistoryActivity.class);
+    public void viewAllServiceHistory(View v) {
+        Intent intent = new Intent(this, AllServiceHistoryActivity.class);
         intent.putExtras(vehicleBundle);
         startActivity(intent);
 
     }
 
-    public void viewLastServiceHistory(View v){
-        Intent intent=new Intent(this,ShowService.class);
+    public void viewLastServiceHistory(View v) {
+        Intent intent = new Intent(this, ShowService.class);
         intent.putExtras(vehicleBundle);
         startActivity(intent);
     }
 
-    public void createServiceReminder(){
-        Intent intent=new Intent(this,AddReminder.class);
+    public void createServiceReminder() {
+        Intent intent = new Intent(this, AddReminder.class);
         intent.putExtras(vehicleBundle);
         startActivity(intent);
     }
@@ -162,17 +162,17 @@ ListView listView;
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        switch (id){
+        switch (id) {
             case R.id.action_add_reminder:
                 createServiceReminder();
                 return true;
             case R.id.action_add_service:
                 addServiceHistory();
                 return true;
-            default: return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
 
         }
-
 
 
     }

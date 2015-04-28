@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rzk.servicehistory" >
+    package="com.rzk.servicehistory">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MenuActivity"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name=".AddServiceActivity"
-            android:label="@string/title_activity_add_service" >
-        </activity>
+            android:label="@string/title_activity_add_service"></activity>
         <activity
             android:name=".ShowService"
-            android:label="@string/title_activity_show_service" >
-        </activity>
+            android:label="@string/title_activity_show_service"></activity>
         <activity
             android:name=".ServiceHistory"
-            android:label="@string/title_activity_service_history" >
-        </activity>
+            android:label="@string/title_activity_service_history"></activity>
         <activity
             android:name=".AllServiceHistoryActivity"
-            android:label="@string/title_activity_all_service_history" >
-        </activity>
+            android:label="@string/title_activity_all_service_history"></activity>
         <activity
             android:name=".ServiceDetailActivity"
-            android:label="@string/title_activity_service_detail" >
-        </activity>
+            android:label="@string/title_activity_service_detail"></activity>
         <activity
             android:name=".RootMenuActivity"
-            android:label="@string/title_activity_root_menu" >
+            android:label="@string/title_activity_root_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,23 +36,20 @@
         </activity>
         <activity
             android:name=".AddVehicleActivity"
-            android:label="@string/title_activity_add_vehicle" >
-        </activity>
+            android:label="@string/title_activity_add_vehicle"></activity>
         <activity
             android:name=".AddReminder"
-            android:label="@string/title_activity_add_reminder" >
-        </activity>
+            android:label="@string/title_activity_add_reminder"></activity>
         <activity
             android:name=".ViewReminderActivity"
-            android:label="@string/title_activity_view_reminder" >
-        </activity>
+            android:label="@string/title_activity_view_reminder"></activity>
         <activity
             android:name=".ViewAllReminder"
-            android:label="@string/title_activity_view_all_reminder" >
-        </activity>
+            android:label="@string/title_activity_view_all_reminder"></activity>
+
         <receiver android:name=".AlarmReceiver">
             <intent-filter>
-                <action android:name=".Alarmreceiver"/>
+                <action android:name=".Alarmreceiver" />
             </intent-filter>
         </receiver>
 

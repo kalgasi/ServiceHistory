@@ -29,7 +29,7 @@ import java.util.Locale;
 
 
 public class AddReminder extends ActionBarActivity {
-    private EditText editTextDate,editTextDetail,editTextVehicleId,editTextTime;
+    private EditText editTextDate, editTextDetail, editTextVehicleId, editTextTime;
     private VehicleData vehicleData;
     Bundle bundle;
     ServiceDataSource dataSource;
@@ -42,59 +42,61 @@ public class AddReminder extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reminder);
-        Intent intent=getIntent();
-        if(intent!=null){
-            bundle=intent.getExtras();
-            vehicleData=new VehicleData();
+        Intent intent = getIntent();
+        if (intent != null) {
+            bundle = intent.getExtras();
+            vehicleData = new VehicleData();
             vehicleData.setVehicleId(bundle.getString("vehicleId"));
             vehicleData.setVehicleName(bundle.getString("vehicleName"));
             vehicleData.setVehicleData((bundle.getString("vehicleData")));
             vehicleData.setVehicleLastServiceDate(bundle.getString("vehicleLastServiceData"));
         }
-        dataSource=new ServiceDataSource(this);
-        editTextDate=(EditText) findViewById(R.id.edit_text_reminder_date);
-        editTextDetail=(EditText) findViewById(R.id.editText_reminder_detail);
-        editTextVehicleId=(EditText) findViewById(R.id.editText_vehicle_id);
+        dataSource = new ServiceDataSource(this);
+        editTextDate = (EditText) findViewById(R.id.edit_text_reminder_date);
+        editTextDetail = (EditText) findViewById(R.id.editText_reminder_detail);
+        editTextVehicleId = (EditText) findViewById(R.id.editText_vehicle_id);
         editTextVehicleId.setText(vehicleData.getVehicleId());
-        editTextTime=(EditText)findViewById(R.id.edit_text_reminder_time);
+        editTextTime = (EditText) findViewById(R.id.edit_text_reminder_time);
 
     }
-    public void setReminderDate(View v ){
-        dateFormatter=new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+    public void setReminderDate(View v) {
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         Calendar newCalendar = Calendar.getInstance();
-        dateDialog=new DatePickerDialog(this,new DatePickerDialog.OnDateSetListener() {
+        dateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
                 editTextDate.setText(dateFormatter.format(newDate.getTime()));
             }
-        }, newCalendar.get(Calendar.YEAR),newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH)
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH)
 
         );
-        dateDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+        dateDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         dateDialog.show();
 
     }
-    public void setReminderTime(View v){
-        Calendar currentTime=Calendar.getInstance();
-        int hour=currentTime.get(Calendar.HOUR_OF_DAY);
-        int minute=currentTime.get(Calendar.MINUTE);
 
-        pickerDialog=new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+    public void setReminderTime(View v) {
+        Calendar currentTime = Calendar.getInstance();
+        int hour = currentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = currentTime.get(Calendar.MINUTE);
+
+        pickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                editTextTime.setText(hourOfDay+":"+minute);
+                editTextTime.setText(hourOfDay + ":" + minute);
 
             }
-        },hour,minute,true);
+        }, hour, minute, true);
         pickerDialog.show();
     }
 
-    public void addServiceReminder(View view){
-        if(editTextDetail.getText().toString().length()>0&&editTextDate.getText().toString().length()>0){
-            ServiceReminder serviceReminder=new ServiceReminder();
+    public void addServiceReminder(View view) {
+        if (editTextDetail.getText().toString().length() > 0 && editTextDate.getText().toString().length() > 0) {
+            ServiceReminder serviceReminder = new ServiceReminder();
             serviceReminder.setVehicleId(vehicleData.getVehicleId());
             serviceReminder.setDate(editTextDate.getText().toString());
             serviceReminder.setDetail(editTextDetail.getText().toString());
@@ -107,45 +109,44 @@ public class AddReminder extends ActionBarActivity {
                 e.printStackTrace();
             }
             dataSource.close();
-            Toast.makeText(this,"Reminder Added",Toast.LENGTH_SHORT).show();
-            SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+            Toast.makeText(this, "Reminder Added", Toast.LENGTH_SHORT).show();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
             try {
-                Date date=dateFormat.parse(editTextDate.getText().toString());
-                String s[]=editTextTime.getText().toString().split(":");
-                int h=Integer.parseInt(s[0]);
-                int m=Integer.parseInt(s[1]);
-                Calendar c=Calendar.getInstance();
+                Date date = dateFormat.parse(editTextDate.getText().toString());
+                String s[] = editTextTime.getText().toString().split(":");
+                int h = Integer.parseInt(s[0]);
+                int m = Integer.parseInt(s[1]);
+                Calendar c = Calendar.getInstance();
                 c.setTime(date);
                 c.set(Calendar.HOUR_OF_DAY, h);
                 c.set(Calendar.MINUTE, m);
                 c.set(Calendar.SECOND, 1);
-                long when=c.getTimeInMillis();
+                long when = c.getTimeInMillis();
                 //Toast.makeText(this,c.getTime().toString(),Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(this,AlarmReceiver.class);
-                intent.putExtra("detail",editTextDetail.getText().toString());
-                AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                Intent intent = new Intent(this, AlarmReceiver.class);
+                intent.putExtra("detail", editTextDetail.getText().toString());
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
                 //set the alarm for particular time
-                int id=(int) System.currentTimeMillis();
-                alarmManager.set(AlarmManager.RTC_WAKEUP,when,
-                        PendingIntent.getBroadcast(this,id,  intent, PendingIntent.FLAG_UPDATE_CURRENT));
+                int id = (int) System.currentTimeMillis();
+                alarmManager.set(AlarmManager.RTC_WAKEUP, when,
+                        PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             finish();
-        }
-        else{
-            Toast.makeText(this,"Date And Detail cannot empty",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Date And Detail cannot empty", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void addNotification(){
+    public void addNotification() {
 
     }
 
-    public void cancelReminder(View view){
+    public void cancelReminder(View view) {
         finish();
     }
 

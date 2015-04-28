@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical">
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:id="@+id/textView_notif" android:focusable="false" android:onClick="showReminder"
+        android:clickable="true" android:textStyle="italic"
+        android:textAppearance="?android:textAppearanceLarge" android:visibility="gone"
+        android:layout_marginBottom="20dp" />
+
+
+    <ListView android:id="@+id/list_vehicle" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        ></ListView>
+
+
+</LinearLayout><!-- From: file:/D:/latihan/ServiceHistory/app/src/main/res/layout/activity_root_menu.xml -->
