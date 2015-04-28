@@ -4,43 +4,43 @@ package com.rzk.servicehistory.database;
  * Created by lenovo on 12/03/2015.
  */
 public class ServiceData {
-    private String ServiceName;
-    private String ServiceDate;
-    private String ServiceSparePart;
-    private String ServiceInfo;
-    private String VehicleId;
+    private String serviceName;
+    private String serviceDate;
+    private String serviceSparePart;
+    private String serviceInfo;
+    private String vehicleId;
     private long id;
 
     public String getServiceName() {
-        return ServiceName;
+        return serviceName;
     }
 
     public void setServiceName(String serviceName) {
-        ServiceName = serviceName;
+        this.serviceName = serviceName;
     }
 
     public String getServiceDate() {
-        return ServiceDate;
+        return serviceDate;
     }
 
     public void setServiceDate(String serviceDate) {
-        ServiceDate = serviceDate;
+        this.serviceDate = serviceDate;
     }
 
     public String getServiceSparePart() {
-        return ServiceSparePart;
+        return serviceSparePart;
     }
 
     public void setServiceSparePart(String serviceSparePart) {
-        ServiceSparePart = serviceSparePart;
+        this.serviceSparePart = serviceSparePart;
     }
 
     public String getServiceInfo() {
-        return ServiceInfo;
+        return serviceInfo;
     }
 
     public void setServiceInfo(String serviceInfo) {
-        ServiceInfo = serviceInfo;
+        this.serviceInfo = serviceInfo;
     }
 
     public long getId() {
@@ -52,14 +52,14 @@ public class ServiceData {
     }
 
     public String toString(){
-        return ServiceDate+" "+ServiceName;
+        return serviceDate +" "+ serviceName;
     }
 
     public String getVehicleId() {
-        return VehicleId;
+        return vehicleId;
     }
 
     public void setVehicleId(String vehicleId) {
-        VehicleId = vehicleId;
+        this.vehicleId = vehicleId;
     }
 }
