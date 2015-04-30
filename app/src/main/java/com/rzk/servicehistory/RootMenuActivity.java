@@ -26,6 +26,7 @@ public class RootMenuActivity extends ActionBarActivity {
     private ServiceDataSource dataSource;
     ArrayAdapter<VehicleData> arrayAdapter;
     TextView textViewReminder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,25 +36,25 @@ public class RootMenuActivity extends ActionBarActivity {
         if vehicle data exist, show history menu
         else show add vehicle menu
          */
-        listViewVehicle=(ListView) findViewById(R.id.list_vehicle);
-        textViewReminder=(TextView)findViewById(R.id.textView_notif);
-        dataSource=new ServiceDataSource(this);
-        int count= checkReminder();
+        listViewVehicle = (ListView) findViewById(R.id.list_vehicle);
+        textViewReminder = (TextView) findViewById(R.id.textView_notif);
+        dataSource = new ServiceDataSource(this);
+        int count = checkReminder();
         //System.out.println(count +"**");
-           showNotif(count);
+        showNotif(count);
 
 
         //listViewVehicle=(ListView) findViewById(R.id.list_vehicle);
-        if(checkDatabase()){
+        if (checkDatabase()) {
 
 
             listViewVehicle.setVisibility(View.VISIBLE);
             listViewVehicle.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    VehicleData vehicleData=vehicleDatas.get(position);
+                    VehicleData vehicleData = vehicleDatas.get(position);
                     showVehicleHistoryMenu(vehicleData);
-                   // showData(vehicleData);
+                    // showData(vehicleData);
 
                 }
             });
@@ -69,25 +70,25 @@ public class RootMenuActivity extends ActionBarActivity {
                         e.printStackTrace();
                     }
                     dataSource.close();
-                    int count=checkReminder();
+                    int count = checkReminder();
                     showNotif(count);
                     return true;
                 }
             });
-        }
-       else{
+        } else {
             listViewVehicle.setVisibility(View.GONE);
         }
     }
+
     /*
     *check if theres any reminder
     *
      */
-    public int checkReminder(){
-        int result=0;
+    public int checkReminder() {
+        int result = 0;
         try {
             dataSource.open();
-            result=dataSource.getCountServiceReminder();
+            result = dataSource.getCountServiceReminder();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -96,13 +97,12 @@ public class RootMenuActivity extends ActionBarActivity {
 
     }
 
-    public void showNotif(int notifCount){
-        if(notifCount>0){
+    public void showNotif(int notifCount) {
+        if (notifCount > 0) {
             //Toast.makeText(this,notifCount,Toast.LENGTH_SHORT).show();
-            textViewReminder.setText( notifCount+" service reminder");
+            textViewReminder.setText(notifCount + " service reminder");
             textViewReminder.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             textViewReminder.setVisibility(View.GONE);
         }
     }
@@ -110,43 +110,45 @@ public class RootMenuActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        int count= checkReminder();
+        int count = checkReminder();
         //System.out.println(count +"**");
         showNotif(count);
         //textViewReminder.setVisibility(View.GONE);
-        if (checkDatabase()){
+        if (checkDatabase()) {
 
 
-        }
-        else listViewVehicle.setVisibility(View.GONE);
+        } else listViewVehicle.setVisibility(View.GONE);
     }
-    public void showData(VehicleData data){
-        Toast.makeText(this,data.getVehicleId(),Toast.LENGTH_SHORT).show();
+
+    public void showData(VehicleData data) {
+        Toast.makeText(this, data.getVehicleId(), Toast.LENGTH_SHORT).show();
     }
-    public void showVehicleHistoryMenu(VehicleData vehicleData){
-        Intent intent=new Intent(this, MenuActivity.class);
+
+    public void showVehicleHistoryMenu(VehicleData vehicleData) {
+        Intent intent = new Intent(this, MenuActivity.class);
         intent.putExtras(createVehicleData(vehicleData));
         startActivity(intent);
 
     }
 
-    public Bundle createVehicleData(VehicleData vehicleData){
-        Bundle vehicleDataBundle=new Bundle();
+    public Bundle createVehicleData(VehicleData vehicleData) {
+        Bundle vehicleDataBundle = new Bundle();
         vehicleDataBundle.putString("vehicleId", vehicleData.getVehicleId());
         vehicleDataBundle.putString("vehicleName", vehicleData.getVehicleName());
-        vehicleDataBundle.putString("vehicleData",vehicleData.getVehicleData());
-        if(vehicleData.getVehicleLastServiceDate()==null)
-        vehicleDataBundle.putString("vehicleLastServiceData","");
-        else vehicleDataBundle.putString("vehicleLastServiceData",vehicleData.getVehicleLastServiceDate());
+        vehicleDataBundle.putString("vehicleData", vehicleData.getVehicleData());
+        if (vehicleData.getVehicleLastServiceDate() == null)
+            vehicleDataBundle.putString("vehicleLastServiceData", "");
+        else
+            vehicleDataBundle.putString("vehicleLastServiceData", vehicleData.getVehicleLastServiceDate());
         return vehicleDataBundle;
     }
 
-    private boolean checkDatabase(){
+    private boolean checkDatabase() {
         try {
             dataSource.open();
-            vehicleDatas=dataSource.getAllvehicleData();
-            arrayAdapter=new ArrayAdapter<VehicleData>(this,
-                    android.R.layout.simple_list_item_1,vehicleDatas);
+            vehicleDatas = dataSource.getAllvehicleData();
+            arrayAdapter = new ArrayAdapter<VehicleData>(this,
+                    android.R.layout.simple_list_item_1, vehicleDatas);
             listViewVehicle.setAdapter(arrayAdapter);
         } catch (SQLException e) {
             return false;
@@ -155,16 +157,15 @@ public class RootMenuActivity extends ActionBarActivity {
         return true;
     }
 
-    public void addVehicle(){
-        Intent intent=new Intent(this,AddVehicleActivity.class);
+    public void addVehicle() {
+        Intent intent = new Intent(this, AddVehicleActivity.class);
         startActivity(intent);
     }
 
-    public void showReminder(View v){
-        Intent intent=new Intent(this,ViewAllReminder.class);
+    public void showReminder(View v) {
+        Intent intent = new Intent(this, ViewAllReminder.class);
         startActivity(intent);
     }
-
 
 
     @Override
