@@ -1,9 +1,48 @@
-.gradle
-/local.properties
-/.idea/workspace.xml
+# Files for the Dalvik VM
 /.idea/libraries
-.DS_Store
-/build
-.idea/
-app/app.iml
+app/app-release.apk
+app/manifest-merger-release-report.txt
+
+#built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log Files
+*.log
 *.iml
+
+# Windows thumbnail db
+Thumbs.db
+
+# OSX files
+.DS_Store
+
+# Android Studio
+.idea
+idea/workspace.xml - remove # and delete .idea if it better suit your needs.
+.gradle
+build/
+
+# User-specific configurations
+.idea/misc.xml
+.idea/gradle.xml
+.idea/modules.xml
+.idea/vcs.xml
+*~
+
+# certificate files
+*.keystore
+app/build/
