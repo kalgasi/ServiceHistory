@@ -190,7 +190,7 @@
     <string name="title_activity_add_vehicle">Add Vehicle</string>
     <string name="title_activity_all_service_history">All Service History</string>
     <string name="title_activity_root_menu">Service History</string>
-    <string name="title_activity_service_detail">ServiceDetailActivity</string>
+    <string name="title_activity_service_detail">Service Detail</string>
     <string name="title_activity_service_history">Service History</string>
     <string name="title_activity_show_service">Service History</string>
     <string name="title_activity_view_all_reminder">Reminder</string>
