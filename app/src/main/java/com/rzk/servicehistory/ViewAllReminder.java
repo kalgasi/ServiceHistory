@@ -23,13 +23,14 @@ public class ViewAllReminder extends ActionBarActivity {
     private ServiceDataSource dataSource;
 
     private List<ServiceReminder> serviceReminders;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_all_reminder);
 
-        listViewReminder=(ListView) findViewById(R.id.list_all_reminder);
-        dataSource=new ServiceDataSource(this);
+        listViewReminder = (ListView) findViewById(R.id.list_all_reminder);
+        dataSource = new ServiceDataSource(this);
 
     }
 
@@ -38,15 +39,15 @@ public class ViewAllReminder extends ActionBarActivity {
         super.onResume();
         try {
             dataSource.open();
-            serviceReminders=dataSource.getAllServiceReminder();
-            final ArrayAdapter<ServiceReminder> adapter=new ArrayAdapter<ServiceReminder>(this,
-                    android.R.layout.simple_list_item_1,serviceReminders);
+            serviceReminders = dataSource.getAllServiceReminder();
+            final ArrayAdapter<ServiceReminder> adapter = new ArrayAdapter<ServiceReminder>(this,
+                    android.R.layout.simple_list_item_1, serviceReminders);
             listViewReminder.setAdapter(adapter);
             // Toast.makeText(this,serviceReminders.get(0).getVehicleId(),Toast.LENGTH_SHORT).show();
             listViewReminder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    ServiceReminder serviceReminder=serviceReminders.get(position);
+                    ServiceReminder serviceReminder = serviceReminders.get(position);
                     showServiceReminderDetail(serviceReminder);
                 }
             });
@@ -57,19 +58,19 @@ public class ViewAllReminder extends ActionBarActivity {
 
     }
 
-    public void showServiceReminderDetail(ServiceReminder serviceReminder){
-        Intent intent=new Intent(this,ViewReminderActivity.class);
+    public void showServiceReminderDetail(ServiceReminder serviceReminder) {
+        Intent intent = new Intent(this, ViewReminderActivity.class);
         intent.putExtras(createServiceReminderBundle(serviceReminder));
         startActivity(intent);
     }
 
-    public Bundle createServiceReminderBundle(ServiceReminder serviceReminder){
-        Bundle reminderDetail=new Bundle();
+    public Bundle createServiceReminderBundle(ServiceReminder serviceReminder) {
+        Bundle reminderDetail = new Bundle();
 
-        reminderDetail.putString("vehicleId",serviceReminder.getVehicleId());
-        reminderDetail.putString("reminderDate",serviceReminder.getDate());
-        reminderDetail.putString("reminderDetail",serviceReminder.getDetail());
-        reminderDetail.putString("reminderStatus",serviceReminder.getStatus());
+        reminderDetail.putString("vehicleId", serviceReminder.getVehicleId());
+        reminderDetail.putString("reminderDate", serviceReminder.getDate());
+        reminderDetail.putString("reminderDetail", serviceReminder.getDetail());
+        reminderDetail.putString("reminderStatus", serviceReminder.getStatus());
 
         return reminderDetail;
     }

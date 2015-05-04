@@ -51,8 +51,8 @@ public class ServiceData {
         this.id = id;
     }
 
-    public String toString(){
-        return serviceDate +" "+ serviceName;
+    public String toString() {
+        return serviceDate + " " + serviceName;
     }
 
     public String getVehicleId() {
