@@ -69,7 +69,7 @@ public class AddServiceActivity extends ActionBarActivity {
         editTextSparepart=(EditText)findViewById(R.id.editText_sparepart);
         editTextDate=(EditText) findViewById(R.id.edit_text_date);
         editTextDate.setInputType(InputType.TYPE_NULL);
-        editTextDate.requestFocus();
+        //editTextDate.requestFocus();
         editTextDate.setKeyListener(null);
         editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +131,7 @@ public class AddServiceActivity extends ActionBarActivity {
         textView.setText("");
         textView=(TextView) findViewById(R.id.edit_text_date);
         textView.setHint("Service Date");
+        textView.setText("");
         textView=(TextView) findViewById(R.id.editText_sparepart);
         textView.setText("");
         textView=(TextView) findViewById(R.id.editText);
