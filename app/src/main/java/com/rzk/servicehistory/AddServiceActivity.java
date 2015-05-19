@@ -4,7 +4,10 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Html;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +29,7 @@ import java.util.Locale;
 public class AddServiceActivity extends ActionBarActivity {
     private SimpleDateFormat dateFormatter;
     private DatePickerDialog dateDialog;
-    private EditText editTextDate,editTextSparepart;
+    private EditText editTextDate,editTextSparepart,editTextServiceName;
     private ServiceDataSource dataSource;
     private VehicleData vehicleData;
     @Override
@@ -44,6 +47,25 @@ public class AddServiceActivity extends ActionBarActivity {
             vehicleData.setVehicleData((bundle.getString("vehicleData")));
             vehicleData.setVehicleLastServiceDate(bundle.getString("vehicleLastServiceData"));
         }
+
+        editTextServiceName=(EditText)findViewById(R.id.editText);
+        editTextServiceName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                editTextChecker(editTextServiceName);
+
+            }
+        });
         editTextSparepart=(EditText)findViewById(R.id.editText_sparepart);
         editTextDate=(EditText) findViewById(R.id.edit_text_date);
         editTextDate.setInputType(InputType.TYPE_NULL);
@@ -54,6 +76,16 @@ public class AddServiceActivity extends ActionBarActivity {
                 setDate(v);
             }
         });
+    }
+
+    public boolean editTextChecker(EditText editText){
+        String text=editText.getText().toString().trim();
+        editText.setError(null);
+        if(text.length()==0){
+            editText.setError(Html.fromHtml("<font color='red'>Cannot Empty"));
+            return false;
+        }
+        return true;
     }
 
     public void saveData(View view) throws SQLException {
