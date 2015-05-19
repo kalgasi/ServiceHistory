@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_text_vehicle_id"
-            android:maxLength="7" />
+            android:maxLength="7"
+            android:singleLine="true"/>
 
         <TextView
             android:text="@string/vehicle_name"
@@ -27,17 +28,21 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edit_text_vehicle_name" />
+            android:id="@+id/edit_text_vehicle_name"
+            android:singleLine="true"
+            android:inputType="text"/>
 
         <TextView
             android:text="@string/keterangan"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edit_text_vehicle_info" />
+            android:id="@+id/edit_text_vehicle_info"
+            android:inputType="text"/>
 
         <Button
             android:layout_width="match_parent"
