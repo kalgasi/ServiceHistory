@@ -29,26 +29,27 @@ import java.util.Locale;
 public class AddServiceActivity extends ActionBarActivity {
     private SimpleDateFormat dateFormatter;
     private DatePickerDialog dateDialog;
-    private EditText editTextDate,editTextSparepart,editTextServiceName;
+    private EditText editTextDate, editTextSparepart, editTextServiceName;
     private ServiceDataSource dataSource;
     private VehicleData vehicleData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_service_layout);
 
-        dataSource=new ServiceDataSource(this);
-        vehicleData=new VehicleData();
-        Intent intent=getIntent();
-        if(intent!=null){
-            Bundle bundle=intent.getExtras();
+        dataSource = new ServiceDataSource(this);
+        vehicleData = new VehicleData();
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle bundle = intent.getExtras();
             vehicleData.setVehicleId(bundle.getString("vehicleId"));
             vehicleData.setVehicleName(bundle.getString("vehicleName"));
             vehicleData.setVehicleData((bundle.getString("vehicleData")));
             vehicleData.setVehicleLastServiceDate(bundle.getString("vehicleLastServiceData"));
         }
 
-        editTextServiceName=(EditText)findViewById(R.id.editText);
+        editTextServiceName = (EditText) findViewById(R.id.editText);
         editTextServiceName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -66,8 +67,8 @@ public class AddServiceActivity extends ActionBarActivity {
 
             }
         });
-        editTextSparepart=(EditText)findViewById(R.id.editText_sparepart);
-        editTextDate=(EditText) findViewById(R.id.edit_text_date);
+        editTextSparepart = (EditText) findViewById(R.id.editText_sparepart);
+        editTextDate = (EditText) findViewById(R.id.edit_text_date);
         editTextDate.setInputType(InputType.TYPE_NULL);
         //editTextDate.requestFocus();
         editTextDate.setKeyListener(null);
@@ -79,10 +80,10 @@ public class AddServiceActivity extends ActionBarActivity {
         });
     }
 
-    public boolean editTextChecker(EditText editText){
-        String text=editText.getText().toString().trim();
+    public boolean editTextChecker(EditText editText) {
+        String text = editText.getText().toString().trim();
         editText.setError(null);
-        if(text.length()==0){
+        if (text.length() == 0) {
             editText.setError(Html.fromHtml("<font color='red'>Cannot Empty"));
             return false;
         }
@@ -91,20 +92,19 @@ public class AddServiceActivity extends ActionBarActivity {
 
     public void saveData(View view) throws SQLException {
 
-        EditText editTextService=(EditText) findViewById(R.id.editText);
-        if(editTextService.getText().toString().trim().length()<2){
-            Toast.makeText(this,"Service Name Cannot Empty",Toast.LENGTH_SHORT).show();
-        }
-        else {
+        EditText editTextService = (EditText) findViewById(R.id.editText);
+        if (editTextService.getText().toString().trim().length() < 2) {
+            Toast.makeText(this, "Service Name Cannot Empty", Toast.LENGTH_SHORT).show();
+        } else {
             dataSource.open();
-            TextView textViewServiceName,textViewDate,textViewSparepart,textViewInfo;
-            textViewServiceName=(TextView) findViewById(R.id.editText);
-            textViewDate=(TextView) findViewById(R.id.edit_text_date);
-            textViewSparepart=(TextView)findViewById(R.id.editText_sparepart);
-            textViewInfo=(TextView)findViewById(R.id.editText_detail_service);
+            TextView textViewServiceName, textViewDate, textViewSparepart, textViewInfo;
+            textViewServiceName = (TextView) findViewById(R.id.editText);
+            textViewDate = (TextView) findViewById(R.id.edit_text_date);
+            textViewSparepart = (TextView) findViewById(R.id.editText_sparepart);
+            textViewInfo = (TextView) findViewById(R.id.editText_detail_service);
 
             vehicleData.setVehicleLastServiceDate(textViewDate.getText().toString());
-            ServiceData serviceData=new ServiceData();
+            ServiceData serviceData = new ServiceData();
             serviceData.setServiceName(textViewServiceName.getText().toString());
             serviceData.setServiceDate(textViewDate.getText().toString());
             serviceData.setServiceSparePart(textViewSparepart.getText().toString());
@@ -115,38 +115,38 @@ public class AddServiceActivity extends ActionBarActivity {
             dataSource.updateVehicleList(vehicleData);
             dataSource.close();
 
-            Toast.makeText(this,"Recent Service Data Saved "+vehicleData.getVehicleLastServiceDate(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Recent Service Data Saved " + vehicleData.getVehicleLastServiceDate(), Toast.LENGTH_SHORT).show();
             AddServiceActivity.this.finish();
         }
 
     }
 
-    public void resetData(View view){
+    public void resetData(View view) {
         resetText();
 
     }
 
-    private void resetText(){
-        TextView textView=(TextView) findViewById(R.id.editText_detail_service);
+    private void resetText() {
+        TextView textView = (TextView) findViewById(R.id.editText_detail_service);
         textView.setText("");
-        textView=(TextView) findViewById(R.id.edit_text_date);
+        textView = (TextView) findViewById(R.id.edit_text_date);
         textView.setHint("Service Date");
         textView.setText("");
-        textView=(TextView) findViewById(R.id.editText_sparepart);
+        textView = (TextView) findViewById(R.id.editText_sparepart);
         textView.setText("");
-        textView=(TextView) findViewById(R.id.editText);
+        textView = (TextView) findViewById(R.id.editText);
         textView.setText("");
 
 
     }
 
-    public void setDate(View v){
+    public void setDate(View v) {
 
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
-       // final EditText editTextDate=(EditText) findViewById(R.id.edit_text_date);
+        // final EditText editTextDate=(EditText) findViewById(R.id.edit_text_date);
         Calendar newCalendar = Calendar.getInstance();
-        dateDialog=new DatePickerDialog(this,new DatePickerDialog.OnDateSetListener() {
+        dateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
@@ -154,7 +154,7 @@ public class AddServiceActivity extends ActionBarActivity {
                 editTextDate.setText(dateFormatter.format(newDate.getTime()));
                 editTextSparepart.setFocusable(true);
             }
-            }, newCalendar.get(Calendar.YEAR),newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH)
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH)
 
         );
         dateDialog.show();
