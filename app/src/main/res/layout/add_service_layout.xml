@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText"
-
+            android:inputType="text"
 
             />
 
@@ -61,7 +61,8 @@
             android:inputType="textMultiLine"
             android:id="@+id/editText_sparepart"
             android:lines="2"
-            android:gravity="start|top" />
+            android:gravity="start|top"
+            />
 
 
         <TextView

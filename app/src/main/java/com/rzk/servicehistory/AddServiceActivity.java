@@ -26,7 +26,7 @@ import java.util.Locale;
 public class AddServiceActivity extends ActionBarActivity {
     private SimpleDateFormat dateFormatter;
     private DatePickerDialog dateDialog;
-    private EditText editTextDate;
+    private EditText editTextDate,editTextSparepart;
     private ServiceDataSource dataSource;
     private VehicleData vehicleData;
     @Override
@@ -44,7 +44,7 @@ public class AddServiceActivity extends ActionBarActivity {
             vehicleData.setVehicleData((bundle.getString("vehicleData")));
             vehicleData.setVehicleLastServiceDate(bundle.getString("vehicleLastServiceData"));
         }
-
+        editTextSparepart=(EditText)findViewById(R.id.editText_sparepart);
         editTextDate=(EditText) findViewById(R.id.edit_text_date);
         editTextDate.setInputType(InputType.TYPE_NULL);
         editTextDate.requestFocus();
@@ -118,6 +118,7 @@ public class AddServiceActivity extends ActionBarActivity {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
                 editTextDate.setText(dateFormatter.format(newDate.getTime()));
+                editTextSparepart.setFocusable(true);
             }
             }, newCalendar.get(Calendar.YEAR),newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH)
 
