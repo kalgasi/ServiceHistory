@@ -2,6 +2,9 @@ package com.rzk.servicehistory;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Html;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +26,39 @@ public class AddVehicleActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_vehicle);
         editTextVehicleID = (EditText) findViewById(R.id.edit_text_vehicle_id);
+        editTextVehicleID.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                editTextChecker(editTextVehicleID);
+            }
+        });
         editTextVehicleName = (EditText) findViewById(R.id.edit_text_vehicle_name);
+        editTextVehicleName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                editTextChecker(editTextVehicleName);
+            }
+        });
         editTextVehicleInfo = (EditText) findViewById(R.id.edit_text_vehicle_info);
     }
 
@@ -65,6 +100,16 @@ public class AddVehicleActivity extends ActionBarActivity {
 
         }
 
+    }
+
+    public boolean editTextChecker(EditText editText){
+        String text=editText.getText().toString().trim();
+        editText.setError(null);
+        if(text.length()==0){
+            editText.setError(Html.fromHtml("<font color='red'>Cannot Empty "));
+            return false;
+        }
+        return true;
     }
 
 
