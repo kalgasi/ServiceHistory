@@ -70,6 +70,7 @@ public class AddServiceActivity extends ActionBarActivity {
         editTextDate=(EditText) findViewById(R.id.edit_text_date);
         editTextDate.setInputType(InputType.TYPE_NULL);
         editTextDate.requestFocus();
+        editTextDate.setKeyListener(null);
         editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
