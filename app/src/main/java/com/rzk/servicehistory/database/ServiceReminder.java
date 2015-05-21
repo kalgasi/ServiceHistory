@@ -43,7 +43,7 @@ public class ServiceReminder {
     }
 
     public String toString(){
-        return getVehicleId()+" "+getDate()+" "+getDetail();
+        return getDate()+" "+getVehicleId()+" "+getDetail();
     }
 
     public String getDetail() {

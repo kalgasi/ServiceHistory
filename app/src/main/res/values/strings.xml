@@ -25,7 +25,7 @@
     <string name="title_activity_service_history">Service History</string>
     <string name="title_activity_all_service_history">All Service History</string>
     <string name="title_activity_service_detail">Service Detail</string>
-    <string name="title_activity_root_menu">Service History</string>
+    <string name="title_activity_root_menu">Vehicle</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
