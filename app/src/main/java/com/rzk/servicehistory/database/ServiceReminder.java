@@ -7,7 +7,7 @@ public class ServiceReminder {
     private String VehicleId;
     private String Date;
     //private String info;
-    private  String detail;
+    private String detail;
     private String status;
 
     public String getVehicleId() {
@@ -42,8 +42,8 @@ public class ServiceReminder {
         this.status = status;
     }
 
-    public String toString(){
-        return getDate()+" "+getVehicleId()+" "+getDetail();
+    public String toString() {
+        return getDate() + " " + getVehicleId() + " " + getDetail();
     }
 
     public String getDetail() {
